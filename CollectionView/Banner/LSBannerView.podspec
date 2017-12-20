@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "LSBannerView"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "banner made by custom collection Layout"
 
   # This description is used to generate tags and improve search results.
@@ -91,10 +91,10 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = 'ForPod/Classes'
+  s.source_files  = 'CollectionView/Banner/ForPod/Classes'
 # s.exclude_files = "Classes/Exclude"
 
-  s.public_header_files = "ForPod/Classes/**/*.h"
+  s.public_header_files = "CollectionView/Banner/ForPod/Classes/**/*.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
