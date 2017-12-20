@@ -1,0 +1,20 @@
+PODS:
+  - HandyFrame (1.2.0)
+  - HexColors (2.3.0)
+  - SDWebImage (4.2.2):
+    - SDWebImage/Core (= 4.2.2)
+  - SDWebImage/Core (4.2.2)
+
+DEPENDENCIES:
+  - HandyFrame
+  - HexColors (= 2.3.0)
+  - SDWebImage
+
+SPEC CHECKSUMS:
+  HandyFrame: 437df83ba7563c56cd55b9bd0128561995463110
+  HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
+  SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
+
+PODFILE CHECKSUM: 94eaeffad5c0abba97e36b6e71585cc048753e93
+
+COCOAPODS: 1.2.1
