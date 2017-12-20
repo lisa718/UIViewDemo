@@ -6,6 +6,7 @@ def app_pods
     pod 'HexColors','2.3.0'
     pod 'HandyFrame'
     pod 'SDWebImage'
+    pod 'LSTimer'
 end
 
 target 'LSMessages' do

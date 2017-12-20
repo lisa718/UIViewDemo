@@ -38,16 +38,12 @@
 		E1483C331FD3D9D10030CA29 /* lsmessage_prompting_message@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1483C241FD3D9D00030CA29 /* lsmessage_prompting_message@2x.png */; };
 		E1483C341FD3D9D10030CA29 /* lsmessage_prompting_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1483C251FD3D9D00030CA29 /* lsmessage_prompting_close@2x.png */; };
 		E1483C351FD3D9D10030CA29 /* lsmessage_prompting_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1483C261FD3D9D10030CA29 /* lsmessage_prompting_error@3x.png */; };
-		E149462F1FE75E6600E24006 /* LSBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E149462E1FE75E6600E24006 /* LSBannerCell.m */; };
-		E14946321FE75E7A00E24006 /* LSBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14946311FE75E7A00E24006 /* LSBannerView.m */; };
-		E14946351FE75ED500E24006 /* LSBannerFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E14946341FE75ED500E24006 /* LSBannerFlowLayout.m */; };
-		E14946381FE7601A00E24006 /* LSBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E14946371FE7601900E24006 /* LSBannerViewController.m */; };
 		E149463A1FE7630D00E24006 /* banner_data.json in Resources */ = {isa = PBXBuildFile; fileRef = E14946391FE7630D00E24006 /* banner_data.json */; };
-		E149463D1FE76AA200E24006 /* LSBannerEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E149463C1FE76AA200E24006 /* LSBannerEntity.m */; };
-		E14946431FE7F53F00E24006 /* LSBannerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14946421FE7F53F00E24006 /* LSBannerHeaderView.m */; };
-		E14946461FE8119D00E24006 /* LSBannerLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E14946451FE8119D00E24006 /* LSBannerLayout.m */; };
 		E155FD3B1FEA492800714317 /* LSBannerViewWrapperController.m in Sources */ = {isa = PBXBuildFile; fileRef = E155FD3A1FEA492800714317 /* LSBannerViewWrapperController.m */; };
-		E155FD3F1FEA632C00714317 /* NSTimer+NonRetain.m in Sources */ = {isa = PBXBuildFile; fileRef = E155FD3E1FEA632C00714317 /* NSTimer+NonRetain.m */; };
+		E155FD4B1FEA982A00714317 /* LSBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E155FD431FEA982900714317 /* LSBannerCell.m */; };
+		E155FD4C1FEA982A00714317 /* LSBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E155FD441FEA982900714317 /* LSBannerView.m */; };
+		E155FD4D1FEA982A00714317 /* LSBannerEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E155FD461FEA982A00714317 /* LSBannerEntity.m */; };
+		E155FD4E1FEA982A00714317 /* LSBannerLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E155FD481FEA982A00714317 /* LSBannerLayout.m */; };
 		E1999BA21FE65D3C00AA4C22 /* LSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1999BA11FE65D3C00AA4C22 /* LSCollectionViewController.m */; };
 		E1999BA51FE6624000AA4C22 /* LSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1999BA41FE6624000AA4C22 /* LSCollectionViewCell.m */; };
 		E1B38A741FDAEA0C00408309 /* NSObject+DLIntrospection.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B38A721FDAEA0B00408309 /* NSObject+DLIntrospection.m */; };
@@ -127,26 +123,18 @@
 		E1483C241FD3D9D00030CA29 /* lsmessage_prompting_message@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "lsmessage_prompting_message@2x.png"; path = "ForPod/Assets/lsmessage_prompting_message@2x.png"; sourceTree = SOURCE_ROOT; };
 		E1483C251FD3D9D00030CA29 /* lsmessage_prompting_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "lsmessage_prompting_close@2x.png"; path = "ForPod/Assets/lsmessage_prompting_close@2x.png"; sourceTree = SOURCE_ROOT; };
 		E1483C261FD3D9D10030CA29 /* lsmessage_prompting_error@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "lsmessage_prompting_error@3x.png"; path = "ForPod/Assets/lsmessage_prompting_error@3x.png"; sourceTree = SOURCE_ROOT; };
-		E149462D1FE75E6600E24006 /* LSBannerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBannerCell.h; sourceTree = "<group>"; };
-		E149462E1FE75E6600E24006 /* LSBannerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSBannerCell.m; sourceTree = "<group>"; };
-		E14946301FE75E7A00E24006 /* LSBannerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBannerView.h; sourceTree = "<group>"; };
-		E14946311FE75E7A00E24006 /* LSBannerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSBannerView.m; sourceTree = "<group>"; };
-		E14946331FE75ED500E24006 /* LSBannerFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBannerFlowLayout.h; sourceTree = "<group>"; };
-		E14946341FE75ED500E24006 /* LSBannerFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSBannerFlowLayout.m; sourceTree = "<group>"; };
-		E14946361FE7601900E24006 /* LSBannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSBannerViewController.h; sourceTree = "<group>"; };
-		E14946371FE7601900E24006 /* LSBannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSBannerViewController.m; sourceTree = "<group>"; };
 		E14946391FE7630D00E24006 /* banner_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = banner_data.json; sourceTree = "<group>"; };
-		E149463B1FE76AA200E24006 /* LSBannerEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBannerEntity.h; sourceTree = "<group>"; };
-		E149463C1FE76AA200E24006 /* LSBannerEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSBannerEntity.m; sourceTree = "<group>"; };
-		E14946411FE7F53F00E24006 /* LSBannerHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBannerHeaderView.h; sourceTree = "<group>"; };
-		E14946421FE7F53F00E24006 /* LSBannerHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSBannerHeaderView.m; sourceTree = "<group>"; };
-		E14946441FE8119D00E24006 /* LSBannerLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBannerLayout.h; sourceTree = "<group>"; };
-		E14946451FE8119D00E24006 /* LSBannerLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSBannerLayout.m; sourceTree = "<group>"; };
-		E155FD381FEA10AC00714317 /* LSBannerViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBannerViewDelegate.h; sourceTree = "<group>"; };
 		E155FD391FEA492800714317 /* LSBannerViewWrapperController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSBannerViewWrapperController.h; sourceTree = "<group>"; };
 		E155FD3A1FEA492800714317 /* LSBannerViewWrapperController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSBannerViewWrapperController.m; sourceTree = "<group>"; };
-		E155FD3D1FEA632C00714317 /* NSTimer+NonRetain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTimer+NonRetain.h"; sourceTree = "<group>"; };
-		E155FD3E1FEA632C00714317 /* NSTimer+NonRetain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+NonRetain.m"; sourceTree = "<group>"; };
+		E155FD421FEA982900714317 /* LSBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSBannerView.h; path = ForPod/LSBannerView.h; sourceTree = "<group>"; };
+		E155FD431FEA982900714317 /* LSBannerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSBannerCell.m; path = ForPod/LSBannerCell.m; sourceTree = "<group>"; };
+		E155FD441FEA982900714317 /* LSBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSBannerView.m; path = ForPod/LSBannerView.m; sourceTree = "<group>"; };
+		E155FD451FEA982900714317 /* LSBannerEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSBannerEntity.h; path = ForPod/LSBannerEntity.h; sourceTree = "<group>"; };
+		E155FD461FEA982A00714317 /* LSBannerEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSBannerEntity.m; path = ForPod/LSBannerEntity.m; sourceTree = "<group>"; };
+		E155FD471FEA982A00714317 /* LSBannerLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSBannerLayout.h; path = ForPod/LSBannerLayout.h; sourceTree = "<group>"; };
+		E155FD481FEA982A00714317 /* LSBannerLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSBannerLayout.m; path = ForPod/LSBannerLayout.m; sourceTree = "<group>"; };
+		E155FD491FEA982A00714317 /* LSBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSBannerViewDelegate.h; path = ForPod/LSBannerViewDelegate.h; sourceTree = "<group>"; };
+		E155FD4A1FEA982A00714317 /* LSBannerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSBannerCell.h; path = ForPod/LSBannerCell.h; sourceTree = "<group>"; };
 		E1999BA01FE65D3C00AA4C22 /* LSCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSCollectionViewController.h; sourceTree = "<group>"; };
 		E1999BA11FE65D3C00AA4C22 /* LSCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSCollectionViewController.m; sourceTree = "<group>"; };
 		E1999BA31FE6624000AA4C22 /* LSCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSCollectionViewCell.h; sourceTree = "<group>"; };
@@ -231,7 +219,6 @@
 		E1483B891FD3BD790030CA29 = {
 			isa = PBXGroup;
 			children = (
-				E155FD3C1FEA62FD00714317 /* Tool */,
 				E1999B9F1FE65CA900AA4C22 /* CollectionView */,
 				E1ED70AC1FE1759C00F30AB7 /* TableView */,
 				E1ED70A81FE174AB00F30AB7 /* HeightCalculationMethods */,
@@ -330,35 +317,20 @@
 		E149462C1FE75E4700E24006 /* Banner */ = {
 			isa = PBXGroup;
 			children = (
-				E14946361FE7601900E24006 /* LSBannerViewController.h */,
-				E14946371FE7601900E24006 /* LSBannerViewController.m */,
+				E155FD4A1FEA982A00714317 /* LSBannerCell.h */,
+				E155FD431FEA982900714317 /* LSBannerCell.m */,
+				E155FD451FEA982900714317 /* LSBannerEntity.h */,
+				E155FD461FEA982A00714317 /* LSBannerEntity.m */,
+				E155FD471FEA982A00714317 /* LSBannerLayout.h */,
+				E155FD481FEA982A00714317 /* LSBannerLayout.m */,
+				E155FD421FEA982900714317 /* LSBannerView.h */,
+				E155FD441FEA982900714317 /* LSBannerView.m */,
+				E155FD491FEA982A00714317 /* LSBannerViewDelegate.h */,
 				E155FD391FEA492800714317 /* LSBannerViewWrapperController.h */,
 				E155FD3A1FEA492800714317 /* LSBannerViewWrapperController.m */,
-				E14946301FE75E7A00E24006 /* LSBannerView.h */,
-				E14946311FE75E7A00E24006 /* LSBannerView.m */,
-				E155FD381FEA10AC00714317 /* LSBannerViewDelegate.h */,
-				E149462D1FE75E6600E24006 /* LSBannerCell.h */,
-				E149462E1FE75E6600E24006 /* LSBannerCell.m */,
-				E14946411FE7F53F00E24006 /* LSBannerHeaderView.h */,
-				E14946421FE7F53F00E24006 /* LSBannerHeaderView.m */,
-				E149463B1FE76AA200E24006 /* LSBannerEntity.h */,
-				E149463C1FE76AA200E24006 /* LSBannerEntity.m */,
-				E14946331FE75ED500E24006 /* LSBannerFlowLayout.h */,
-				E14946341FE75ED500E24006 /* LSBannerFlowLayout.m */,
-				E14946441FE8119D00E24006 /* LSBannerLayout.h */,
-				E14946451FE8119D00E24006 /* LSBannerLayout.m */,
 				E14946391FE7630D00E24006 /* banner_data.json */,
 			);
 			path = Banner;
-			sourceTree = "<group>";
-		};
-		E155FD3C1FEA62FD00714317 /* Tool */ = {
-			isa = PBXGroup;
-			children = (
-				E155FD3D1FEA632C00714317 /* NSTimer+NonRetain.h */,
-				E155FD3E1FEA632C00714317 /* NSTimer+NonRetain.m */,
-			);
-			path = Tool;
 			sourceTree = "<group>";
 		};
 		E1999B9F1FE65CA900AA4C22 /* CollectionView */ = {
@@ -643,36 +615,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E155FD4D1FEA982A00714317 /* LSBannerEntity.m in Sources */,
 				E110D38C1FDFF5280030014E /* UITableView+FDKeyedHeightCache.m in Sources */,
 				E110D38E1FDFF5280030014E /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				E1B38A741FDAEA0C00408309 /* NSObject+DLIntrospection.m in Sources */,
 				E1ED70BB1FE2593000F30AB7 /* LSHeightCalculationContext.m in Sources */,
 				E1B38BF91FDD1ACB00408309 /* TestTableViewCell.m in Sources */,
-				E14946381FE7601A00E24006 /* LSBannerViewController.m in Sources */,
-				E14946461FE8119D00E24006 /* LSBannerLayout.m in Sources */,
 				E1483BF61FD3D8F80030CA29 /* LSMessageOperation.m in Sources */,
+				E155FD4E1FEA982A00714317 /* LSBannerLayout.m in Sources */,
 				E1B38BE91FDD176900408309 /* ViewControllerTestTableView.m in Sources */,
 				E1483BF51FD3D8F80030CA29 /* LSMessage.m in Sources */,
 				E1ED70B81FE20D6C00F30AB7 /* LSHeightCalculationViewController.m in Sources */,
 				E155FD3B1FEA492800714317 /* LSBannerViewWrapperController.m in Sources */,
 				E1483B9A1FD3BD790030CA29 /* ViewController.m in Sources */,
 				E110D38D1FDFF5280030014E /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
-				E14946431FE7F53F00E24006 /* LSBannerHeaderView.m in Sources */,
 				E110D38B1FDFF5280030014E /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				E1ED70C21FE259D300F30AB7 /* LSSizeThatFits.m in Sources */,
 				E1999BA21FE65D3C00AA4C22 /* LSCollectionViewController.m in Sources */,
+				E155FD4C1FEA982A00714317 /* LSBannerView.m in Sources */,
 				E1ED70C51FE259E900F30AB7 /* LSBoundsRect.m in Sources */,
 				E1483BF41FD3D8F80030CA29 /* LSMessageView.m in Sources */,
-				E149462F1FE75E6600E24006 /* LSBannerCell.m in Sources */,
-				E155FD3F1FEA632C00714317 /* NSTimer+NonRetain.m in Sources */,
-				E14946321FE75E7A00E24006 /* LSBannerView.m in Sources */,
-				E14946351FE75ED500E24006 /* LSBannerFlowLayout.m in Sources */,
 				E1483BA51FD3BD790030CA29 /* main.m in Sources */,
 				E1999BA51FE6624000AA4C22 /* LSCollectionViewCell.m in Sources */,
+				E155FD4B1FEA982A00714317 /* LSBannerCell.m in Sources */,
 				E1ED70BF1FE259C100F30AB7 /* LSSizeToFit.m in Sources */,
 				E1483B971FD3BD790030CA29 /* AppDelegate.m in Sources */,
 				E110D3811FDF820D0030014E /* UITableViewCell+Test.m in Sources */,
-				E149463D1FE76AA200E24006 /* LSBannerEntity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

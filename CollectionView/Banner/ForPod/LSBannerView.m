@@ -10,7 +10,6 @@
 #import "UIView+LayoutMethods.h"
 #import "LSBannerCell.h"
 #import "LSBannerEntity.h"
-#import "LSBannerFooterTitleView.h"
 #import "LSBannerLayout.h"
 #import "NSTimer+NonRetain.h"
 

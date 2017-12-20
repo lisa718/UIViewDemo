@@ -72,6 +72,7 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     self.bannerView.frame = CGRectMake(0, 100, self.view.ct_width, 300);
+    [self.bannerView sizeToFit];
 
 }
 

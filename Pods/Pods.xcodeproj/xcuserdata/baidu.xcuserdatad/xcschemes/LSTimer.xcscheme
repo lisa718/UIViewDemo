@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '5EB33942FE30AA13F4C05B4C4DD7046D'
-               BlueprintName = 'SDWebImage'
+               BlueprintIdentifier = '55ECDFB642B19B0C8F951AF66538832E'
+               BlueprintName = 'LSTimer'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libSDWebImage.a'>
+               BuildableName = 'libLSTimer.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

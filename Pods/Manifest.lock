@@ -1,6 +1,7 @@
 PODS:
   - HandyFrame (1.2.0)
   - HexColors (2.3.0)
+  - LSTimer (1.0.1)
   - SDWebImage (4.2.2):
     - SDWebImage/Core (= 4.2.2)
   - SDWebImage/Core (4.2.2)
@@ -8,13 +9,15 @@ PODS:
 DEPENDENCIES:
   - HandyFrame
   - HexColors (= 2.3.0)
+  - LSTimer
   - SDWebImage
 
 SPEC CHECKSUMS:
   HandyFrame: 437df83ba7563c56cd55b9bd0128561995463110
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
+  LSTimer: a36b9cdc50b615783e69ba9425a0c8286e54909c
   SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
 
-PODFILE CHECKSUM: 94eaeffad5c0abba97e36b6e71585cc048753e93
+PODFILE CHECKSUM: 5f3022bd16ed6c66c5ad9862464c2aebcc7da16e
 
 COCOAPODS: 1.2.1
