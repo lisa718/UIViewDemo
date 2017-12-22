@@ -58,7 +58,7 @@
 		E1ED70BF1FE259C100F30AB7 /* LSSizeToFit.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ED70BE1FE259C100F30AB7 /* LSSizeToFit.m */; };
 		E1ED70C21FE259D300F30AB7 /* LSSizeThatFits.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ED70C11FE259D300F30AB7 /* LSSizeThatFits.m */; };
 		E1ED70C51FE259E900F30AB7 /* LSBoundsRect.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ED70C41FE259E900F30AB7 /* LSBoundsRect.m */; };
-		E1F999BC1FEBFFCA00D461D2 /* LSFloatingLabelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F999BB1FEBFFCA00D461D2 /* LSFloatingLabelManager.m */; };
+		E1F999BF1FECABD600D461D2 /* LSFloatingLabelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F999BE1FECABD500D461D2 /* LSFloatingLabelManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,8 +169,8 @@
 		E1ED70C11FE259D300F30AB7 /* LSSizeThatFits.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSSizeThatFits.m; sourceTree = "<group>"; };
 		E1ED70C31FE259E900F30AB7 /* LSBoundsRect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBoundsRect.h; sourceTree = "<group>"; };
 		E1ED70C41FE259E900F30AB7 /* LSBoundsRect.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSBoundsRect.m; sourceTree = "<group>"; };
-		E1F999BA1FEBFFCA00D461D2 /* LSFloatingLabelManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSFloatingLabelManager.h; sourceTree = "<group>"; };
-		E1F999BB1FEBFFCA00D461D2 /* LSFloatingLabelManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSFloatingLabelManager.m; sourceTree = "<group>"; };
+		E1F999BD1FECABD500D461D2 /* LSFloatingLabelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSFloatingLabelManager.h; path = ForPod/LSFloatingLabelManager.h; sourceTree = "<group>"; };
+		E1F999BE1FECABD500D461D2 /* LSFloatingLabelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSFloatingLabelManager.m; path = ForPod/LSFloatingLabelManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -443,8 +443,8 @@
 		E1F999B91FEBFFA300D461D2 /* Window */ = {
 			isa = PBXGroup;
 			children = (
-				E1F999BA1FEBFFCA00D461D2 /* LSFloatingLabelManager.h */,
-				E1F999BB1FEBFFCA00D461D2 /* LSFloatingLabelManager.m */,
+				E1F999BD1FECABD500D461D2 /* LSFloatingLabelManager.h */,
+				E1F999BE1FECABD500D461D2 /* LSFloatingLabelManager.m */,
 			);
 			path = Window;
 			sourceTree = "<group>";
@@ -674,7 +674,7 @@
 				E1483BF41FD3D8F80030CA29 /* LSMessageView.m in Sources */,
 				E155FD651FEAB11400714317 /* LSBannerFlowLayout.m in Sources */,
 				E1483BA51FD3BD790030CA29 /* main.m in Sources */,
-				E1F999BC1FEBFFCA00D461D2 /* LSFloatingLabelManager.m in Sources */,
+				E1F999BF1FECABD600D461D2 /* LSFloatingLabelManager.m in Sources */,
 				E1999BA51FE6624000AA4C22 /* LSCollectionViewCell.m in Sources */,
 				E1ED70BF1FE259C100F30AB7 /* LSSizeToFit.m in Sources */,
 				E1483B971FD3BD790030CA29 /* AppDelegate.m in Sources */,
