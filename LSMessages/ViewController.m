@@ -13,6 +13,7 @@
 #import "LSCollectionViewController.h"
 #import "LSBannerViewController.h"
 #import "LSBannerViewWrapperController.h"
+#import "LSFloatingLabelManager.h"
 
 static __weak UINavigationBar * lastNavBar;
 @interface ViewController ()
@@ -29,7 +30,7 @@ static __weak UINavigationBar * lastNavBar;
 @property (nonatomic,strong) UIButton *heightCalculateBtn;
 @property (nonatomic,strong) UIButton *collectionViewBtn;
 @property (nonatomic,strong) UIButton *bannerBtn;
-@property (nonatomic,strong) UIButton *topMessageBtn;
+@property (nonatomic,strong) UIButton *floatLabelBtn;
 
 
 // bottom + stay
@@ -104,7 +105,7 @@ static __weak UINavigationBar * lastNavBar;
     [self.topContainerView addArrangedSubview:self.heightCalculateBtn];
     [self.topContainerView addArrangedSubview:self.collectionViewBtn];
     [self.topContainerView addArrangedSubview:self.bannerBtn];
-    [self.topContainerView addArrangedSubview:self.topMessageBtn];
+    [self.topContainerView addArrangedSubview:self.floatLabelBtn];
 
     // Bottom
     [self.view addSubview:self.bottomContainerView];
@@ -159,15 +160,9 @@ static __weak UINavigationBar * lastNavBar;
     [self.navigationController pushViewController:[LSHeightCalculationViewController new] animated:YES];
 }
 
-- (void)topMessageBtnClick:(UIButton *)button {
-//    [LSMessage showMessageInViewController:self
-//                                         title:nil
-//                                      subtitle:@"评论成功啦！"
-//                                         image:nil
-//                                          type:LSMessageType_Message
-//                                  durationSecs:LSMessageDuration_Seconds_AutoDisappear_After4
-//                                    atPosition:LSMessagePosition_Top];
-    [LSMessage showMessageWithTitle:nil subtitle:@"sdfsdf" type:LSMessageType_Message];
+- (void)floatLabelClick:(UIButton *)button {
+    [LSFloatingLabelManager show];
+    [LSFloatingLabelManager updateTextWith:@"手动释放水电费水电\n费三等分是否水电费水电费胜多负少是三等分三等分说的防守打法"];
 }
 
 - (void)collectionViewClick:(UIButton *)button {
@@ -269,16 +264,16 @@ static __weak UINavigationBar * lastNavBar;
     return _bannerBtn;
 }
 
-- (UIButton *)topMessageBtn {
-    if (_topMessageBtn == nil) {
-        _topMessageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_topMessageBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [_topMessageBtn setTitle:@"TopMessage" forState:UIControlStateNormal];
-        [_topMessageBtn addTarget:self action:@selector(topMessageBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_topMessageBtn setFrame:CGRectMake(0, 0, 70, 40)];
+- (UIButton *)floatLabelBtn {
+    if (_floatLabelBtn == nil) {
+        _floatLabelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_floatLabelBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_floatLabelBtn setTitle:@"浮动球" forState:UIControlStateNormal];
+        [_floatLabelBtn addTarget:self action:@selector(floatLabelClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_floatLabelBtn setFrame:CGRectMake(0, 0, 70, 40)];
         
     }
-    return _topMessageBtn;
+    return _floatLabelBtn;
 }
 
 - (UIButton *)topSuccessStayBtn {

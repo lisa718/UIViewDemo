@@ -51,7 +51,7 @@
         
         NSMutableArray *bannerArray = @[].mutableCopy;
         [rootDic[@"list"] enumerateObjectsUsingBlock:^(NSDictionary * obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            LSBannerEntity * entity = [[LSBannerEntity alloc] initWithDictionary:obj];
+            LSBannerEntity * entity = [[LSBannerEntity alloc] initWithTitle:obj[@"title"] imageName:obj[@"img"]];
             [bannerArray addObject:entity];
         }];
         

@@ -1,5 +1,5 @@
 #
-#  Be sure to run `pod spec lint LSBannerView.podspec' to ensure this is a
+#  Be sure to run `pod spec lint LSFloatingLabel.podspec' to ensure this is a
 #  valid spec and to remove all comments including this before submitting the spec.
 #
 #  To learn more about Podspec attributes see http://docs.cocoapods.org/specification.html
@@ -8,16 +8,16 @@
 
 Pod::Spec.new do |s|
 
-# ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-#
-#  These will help people to find your library, and whilst it
-#  can feel like a chore to fill in it's definitely to your advantage. The
-#  summary should be tweet-length, and the description more in depth.
-#
+  # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  These will help people to find your library, and whilst it
+  #  can feel like a chore to fill in it's definitely to your advantage. The
+  #  summary should be tweet-length, and the description more in depth.
+  #
 
-s.name         = "LSBannerView"
-s.version      = "1.0.2"
-s.summary      = "banner made by custom collection Layout"
+  s.name         = "LSFloatingLabel"
+s.version      = "1.0.3"
+s.summary      = "FloatingLabel"
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,7 +25,7 @@ s.summary      = "banner made by custom collection Layout"
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 s.description  = <<-DESC
-banner made by custom collection Layout
+FloatingLabel
 DESC
 
 s.homepage     = "https://github.com/lisa718/UIViewDemo"
@@ -91,10 +91,10 @@ s.source       = { :git => "https://github.com/lisa718/UIViewDemo.git", :tag => 
 #  Not including the public_header_files will make all headers public.
 #
 
-s.source_files  = 'CollectionView/Banner/ForPod/Classes'
+s.source_files  = '/'
 # s.exclude_files = "Classes/Exclude"
 
-s.public_header_files = "CollectionView/Banner/ForPod/Classes/**/*.h"
+s.public_header_files = "/**/*.h"
 
 
 # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -133,10 +133,10 @@ s.framework  = "UIKit"
 s.requires_arc = true
 
 # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-s.dependency 'HexColors', '~> 2.3.0'
-s.dependency 'LSTimer'
-s.dependency 'HandyFrame'
-s.dependency 'SDWebImage', '~> 4.2.2'
+#s.dependency 'HexColors', '~> 2.3.0'
+#s.dependency 'LSTimer'
+#s.dependency 'HandyFrame'
+#s.dependency 'SDWebImage', '~> 4.2.2'
 
 
 end

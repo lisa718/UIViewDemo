@@ -15,13 +15,15 @@
 
 @implementation LSBannerEntity
 
-- (instancetype)initWithDictionary:(NSDictionary *)dic {
+
+- (instancetype)initWithTitle:(NSString *)title imageName:(NSString *)imageName {
     self = [super init];
     if (self) {
-        _title = [dic[@"title"] copy];
-        _imageName = [dic[@"img"] copy];
+        _title = [title copy];
+        _imageName = [imageName copy];
     }
     return self;
 }
+
 
 @end

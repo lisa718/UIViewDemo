@@ -206,9 +206,13 @@
     
     LSBannerCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([LSBannerCell class]) forIndexPath:indexPath];
     
-    // 捕获上下文cell和indexPath，用于让外面配置cell
-    if (self.dataSource.configureCellBlock) {
-        self.dataSource.configureCellBlock(cell, indexPath.item);
+//    // 捕获上下文cell和indexPath，用于让外面配置cell
+//    if (self.dataSource.configureCellBlock) {
+//        self.dataSource.configureCellBlock(cell, indexPath.item);
+//    }
+    
+    if ([self.dataSource respondsToSelector:@selector(bannerView:cellForConfig:index:)]) {
+        [self.dataSource bannerView:self cellForConfig:(&cell) index:indexPath.item];
     }
     
     return cell;

@@ -226,7 +226,7 @@ const NSTimeInterval kAnimationDuration = 0.2;
         // 如果overNavBar，那么不考虑传入的attatchedViewController，需要加当前的nav的bar下面或者tabcontroller的view上，都可以盖在上面,不需要判断是否有nav
         // 直接加到keywindow上就行了
 //        currentVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-        [[UIApplication sharedApplication].keyWindow addSubview:message_view];
+        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:message_view];
         self.calculateToPos();
     }
     else {

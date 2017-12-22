@@ -10,7 +10,7 @@
 
 @interface LSBannerEntity : NSObject
 
-- (instancetype)initWithDictionary:(NSDictionary *)dic;
+- (instancetype)initWithTitle:(NSString *)title imageName:(NSString *)imageName;
 @property (nonatomic,copy,readonly) NSString * title;
 @property (nonatomic,copy,readonly) NSString * imageName;
 

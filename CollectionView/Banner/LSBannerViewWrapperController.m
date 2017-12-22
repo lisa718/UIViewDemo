@@ -22,7 +22,7 @@
 
 @implementation LSBannerViewWrapperController
 
-@synthesize configureCellBlock;
+//@synthesize configureCellBlock;
 
 
 - (void)viewDidLoad {
@@ -31,15 +31,15 @@
     self.view.backgroundColor = [UIColor grayColor];
     [self.view addSubview:self.bannerView];
     
-    __weak typeof(self) weakSelf = self;
-    self.configureCellBlock = ^(LSBannerCell *cell,NSInteger index) {
-
-        __strong typeof(self) strongSelf = weakSelf;
-        cell.entity = strongSelf.bannerDataArray[index];
-        cell.labelFont = [UIFont systemFontOfSize:10];
-
-    };
-
+//    __weak typeof(self) weakSelf = self;
+//    self.configureCellBlock = ^(LSBannerCell *cell,NSInteger index) {
+//        __strong typeof(self) strongSelf = weakSelf;
+//        cell.entity = strongSelf.bannerDataArray[index];
+//        cell.labelFont = [UIFont systemFontOfSize:10];
+//
+//    };
+    
+    
     // loaddata From jsonFile
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
@@ -50,7 +50,7 @@
         
         NSMutableArray *bannerArray = @[].mutableCopy;
         [rootDic[@"list"] enumerateObjectsUsingBlock:^(NSDictionary * obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            LSBannerEntity * entity = [[LSBannerEntity alloc] initWithDictionary:obj];
+            LSBannerEntity * entity = [[LSBannerEntity alloc] initWithTitle:obj[@"title"] imageName:obj[@"img"]];
             [bannerArray addObject:entity];
         }];
         
@@ -77,6 +77,7 @@
 }
 
 #pragma mark -
+
 - (NSInteger)numberOfItemsInBannerView:(LSBannerView *)bannerView {
     return self.bannerDataArray.count;
 }
@@ -84,6 +85,11 @@
     NSLog(@"index = %d",index);
 }
 
+- (void)bannerView:(LSBannerView *)bannerVIew cellForConfig:(LSBannerCell * __strong *)cell index:(NSInteger)index {
+    LSBannerCell * tagertCell =  *cell;
+    tagertCell.entity = self.bannerDataArray[index];
+    tagertCell.labelFont = [UIFont systemFontOfSize:10];
+}
 
 #pragma mark - getters & setters
 - (LSBannerView *)bannerView {

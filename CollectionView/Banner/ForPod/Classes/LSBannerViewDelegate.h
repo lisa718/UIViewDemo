@@ -14,12 +14,12 @@
 // LSBannerViewDataSource--------------------------------------
 
 @protocol LSBannerDataSource <NSObject>
-#warning block
-@optional
+
 - (NSInteger)numberOfItemsInBannerView:(LSBannerView *)bannerView;
-@property (nonatomic,copy) void(^configureCellBlock)(LSBannerCell *cell,NSInteger index) ;
+//@property (nonatomic,copy) void(^configureCellBlock)(LSBannerCell *cell,NSInteger index);
 //- (LSBannerCell *)bannerView:(LSBannerView *)bannerView cellForItemAtIndex:(NSInteger)index;
 
+- (void)bannerView:(LSBannerView *)bannerVIew cellForConfig:(LSBannerCell * __strong *)cell index:(NSInteger)index;
 
 @end
 
