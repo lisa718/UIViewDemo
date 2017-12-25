@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import "LSMessageView.h"
+#import "LSPerformance.h"
 @interface AppDelegate ()
 
 @end
@@ -23,11 +24,15 @@
     self.window.rootViewController = nav;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+  [LSPerformance startMonitorWithPerformaceType:LSPerformance_FS];
 
     
 //    [[LSMessageView appearance] setTitleFont:[UIFont boldSystemFontOfSize:11]];
     [[LSMessageView appearance] setSuccessBackgroundColor:[UIColor blueColor]];
     [[LSMessageView appearance] setErrorBackgroundColor:[UIColor greenColor]];
+    
+    
     return YES;
 }
 

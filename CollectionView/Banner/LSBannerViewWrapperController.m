@@ -12,11 +12,13 @@
 #import "LSBannerView.h"
 #import "LSBannerCell.h"
 #import "LSBannerEntity.h"
-
+#import "UIImageView+WebCache.h"
+#import "ViewController.h"
 
 @interface LSBannerViewWrapperController() <LSBannerDataSource,LSBannerDelegate>
 @property (nonatomic,strong) LSBannerView *bannerView;
 @property (nonatomic,strong) NSMutableArray<LSBannerEntity *> *bannerDataArray;
+@property (nonatomic,strong) UIButton *pushButton;
 
 @end
 
@@ -24,12 +26,21 @@
 
 //@synthesize configureCellBlock;
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.bannerView stopTimer];
+}
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.bannerView fireTimer];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor grayColor];
     [self.view addSubview:self.bannerView];
+    [self.view addSubview:self.pushButton];
     
 //    __weak typeof(self) weakSelf = self;
 //    self.configureCellBlock = ^(LSBannerCell *cell,NSInteger index) {
@@ -73,22 +84,35 @@
     [super viewWillLayoutSubviews];
     self.bannerView.frame = CGRectMake(0, 100, self.view.ct_width, 300);
     [self.bannerView sizeToFit];
+    
+    self.pushButton.frame = CGRectMake(100, 300, 100, 30);
 
 }
-
 #pragma mark -
+- (void)pushClick:(UIButton *)button {
+    [self.navigationController pushViewController:[ViewController new] animated:YES];
+}
+
+#pragma mark - bannerview delegate
 
 - (NSInteger)numberOfItemsInBannerView:(LSBannerView *)bannerView {
     return self.bannerDataArray.count;
 }
 - (void)bannerView:(LSBannerView *)bannerView didSelectItemAtIndex:(NSInteger)index {
-    NSLog(@"index = %d",index);
+    NSLog(@"index = %ld",index);
 }
 
-- (void)bannerView:(LSBannerView *)bannerVIew cellForConfig:(LSBannerCell * __strong *)cell index:(NSInteger)index {
+- (void)bannerViewDidScroll:(LSBannerView *)bannerView forCurrentItemAtIndex:(NSInteger)index {
+     NSLog(@"index = %ld",index);
+}
+
+- (void)bannerView:(LSBannerView *)bannerView cellForConfig:(LSBannerCell * __autoreleasing *)cell index:(NSInteger)index {
     LSBannerCell * tagertCell =  *cell;
-    tagertCell.entity = self.bannerDataArray[index];
-    tagertCell.labelFont = [UIFont systemFontOfSize:10];
+    LSBannerEntity *entity = self.bannerDataArray[index];
+    [tagertCell.imageView sd_setImageWithURL:[NSURL URLWithString:entity.imageName] placeholderImage:nil];
+//    tagertCell.label.font = [UIFont systemFontOfSize:30];
+//    tagertCell.label.text = [@(index) stringValue];
+//    [LSBannerCell setSpaceBetweenImageAndDescription:-10];
 }
 
 #pragma mark - getters & setters
@@ -101,10 +125,22 @@
         _bannerView.dataSource = self;
         _bannerView.delegate = self;
         _bannerView.enableTransformAnimation = YES;
+        _bannerView.enableAutoScroll = YES;
+        _bannerView.enableInfinite = YES;
     }
     return _bannerView;
 }
-
+- (UIButton *)pushButton {
+    if (_pushButton == nil) {
+        _pushButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_pushButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_pushButton setTitle:@"push" forState:UIControlStateNormal];
+        [_pushButton addTarget:self action:@selector(pushClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_pushButton setFrame:CGRectMake(0, 0, 70, 40)];
+        
+    }
+    return _pushButton;
+}
 
 
 @end

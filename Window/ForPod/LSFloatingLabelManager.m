@@ -34,7 +34,6 @@
 #endif
 }
 
-
 + (void)show {
     #ifdef DEBUG
     [[LSFloatingLabelManager sharedInstance] show];
@@ -54,30 +53,51 @@
     if (_window == nil || _window.hidden) {
         return;
     }
+    if ([self.label.text isEqualToString:text]) {
+        return;
+    }
     self.label.text = text;
     CGRect textRect = [self.label.attributedText boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 20, [UIScreen mainScreen].bounds.size.height)  options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin context:nil];
     self.window.frame = CGRectMake(self.window.frame.origin.x, self.window.frame.origin.y,textRect.size.width, textRect.size.height);
    // 这里改变了label的bounds
-    [self.label sizeToFit];
+    self.label.frame = self.window.bounds;
     [self.window setNeedsDisplay];
 }
 
 - (void)show {
     if (_window != nil && !_window.hidden)
         return;
+//    NSValue *frameValue = [[NSUserDefaults standardUserDefaults] objectForKey:@"floating_window_frame"][0];
+//    if (!CGRectIsEmpty(frameValue.CGRectValue)) {
+//        self.window.frame = frameValue.CGRectValue;
+//    }
     self.window.rootViewController = self.rootVC;
     [self.rootVC.view addSubview:self.label];
     self.label.text = @"FSxxxx";
     self.label.frame = self.rootVC.view.bounds;
     self.label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.window.hidden = NO;
+    [self.window addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)hide {
     self.label = nil;
     self.rootVC = nil;
+    [self.window removeObserver:self forKeyPath:@"frame"];
     self.window.hidden = YES;
     self.window = nil;
+}
+
+- (void)dealloc {
+    [self.window removeObserver:self forKeyPath:@"frame"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+//    if ([keyPath isEqualToString:@"frame"]) {
+//        NSArray *arr = @[[NSValue valueWithCGRect:self.window.frame]];
+//        [[NSUserDefaults standardUserDefaults] setObject:arr forKey:@"floating_window_frame"];
+//    }
 }
 
 #pragma mark - gesture

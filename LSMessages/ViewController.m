@@ -53,6 +53,9 @@ static __weak UINavigationBar * lastNavBar;
     }
     return self;
 }
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -161,8 +164,7 @@ static __weak UINavigationBar * lastNavBar;
 }
 
 - (void)floatLabelClick:(UIButton *)button {
-    [LSFloatingLabelManager show];
-    [LSFloatingLabelManager updateTextWith:@"手动释放水电费水电\n费三等分是否水电费水电费胜多负少是三等分三等分说的防守打法"];
+//    [LSFloatingLabelManager show];
 }
 
 - (void)collectionViewClick:(UIButton *)button {

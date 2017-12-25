@@ -12,6 +12,7 @@
 @interface LSBannerLayout ()
 @property (nonatomic,assign) CGSize contentSize;
 @property (nonatomic,assign) CGSize transformSize;
+@property (nonatomic,assign) CGFloat offsetXForInfinite;
 @property (nonatomic,strong) NSMutableArray<UICollectionViewLayoutAttributes *>*layoutInfoArr;
 
 @end
@@ -23,51 +24,59 @@
 - (void)prepareLayout {
     [super prepareLayout];
     
-    if ([self.collectionView numberOfItemsInSection:0] == 0) {
+    if ([self numberItems] == 0) {
         return;
     }
     //获取布局信息
-    NSInteger maxNumberOfItems = 0;
-    NSInteger numberOfItems = [self.collectionView numberOfItemsInSection:0];
+    if(self.layoutInfoArr.count >0) {
+        return;
+    }
+    NSInteger numberOfItems = [self numberItems];
     NSMutableArray *subArr = @[].mutableCopy;
-    
     for (NSInteger item = 0; item < numberOfItems; item++){
         // item的属性
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:0];
         UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForItemAtIndexPath:indexPath];
         [subArr addObject:attributes];
         // 当有这个补充视图时，需要放开这里的注释，suplimentView属性
-//        UICollectionViewLayoutAttributes *suplementAttributes = [self layoutAttributesForSupplementaryViewOfKind:@"LSBannerHeaderView" atIndexPath:indexPath];
-//        if (suplementAttributes) {
-//            [subArr addObject:suplementAttributes];
-//        }
+        //        UICollectionViewLayoutAttributes *suplementAttributes = [self layoutAttributesForSupplementaryViewOfKind:@"LSBannerHeaderView" atIndexPath:indexPath];
+        //        if (suplementAttributes) {
+        //            [subArr addObject:suplementAttributes];
+        //        }
     }
-    if(maxNumberOfItems < numberOfItems){
-        maxNumberOfItems = numberOfItems;
-    }
-
+    
     //存储布局信息
     self.layoutInfoArr = @[].mutableCopy;
     [self.layoutInfoArr addObjectsFromArray:[subArr copy]];
+//    [self storeLayout];
+
 }
+   
 
 - (CGSize)collectionViewContentSize {
     
     // 因为会改变，所以从prepareLayout拿出来，重新计算内容尺寸
-    NSInteger itemCount = [self.collectionView numberOfItemsInSection:0];
+    NSInteger itemCount = [self numberItems];
+ 
     // 间隔+item的尺寸
-    CGFloat width = self.itemSize.width * (itemCount-1) + self.itemSpacing * (itemCount - 1) + self.transformSize.width;
+    CGFloat width = self.itemSize.width * (itemCount - 1)
+                    + self.itemSpacing * (itemCount - 1)
+                    + self.transformSize.width
+                    + ((self.enableInfinite)?0:self.sectionInset.left+self.sectionInset.right);// 无限模式没有左右间距
+
     CGFloat height = 0;
-    self.contentSize = CGSizeMake(width+self.sectionInset.left+self.sectionInset.right,height);
+    self.contentSize = CGSizeMake(width,height);
     return self.contentSize;
+
 }
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity
 {
-    // 要修改proposedContentOffset，根据当前的contentOffset
-    if (proposedContentOffset.x > self.collectionView.contentOffset.x
-        && self.collectionView.contentOffset.x >= 0) {
-        proposedContentOffset.x = self.collectionView.contentOffset.x + self.collectionView.bounds.size.width / 2.;
+    if (proposedContentOffset.x > self.collectionView.contentOffset.x) {
+        if (self.collectionView.contentOffset.x >= 0){
+            proposedContentOffset.x = self.collectionView.contentOffset.x + self.collectionView.bounds.size.width / 2.;
+        }
+
     }
     else if (proposedContentOffset.x < self.collectionView.contentOffset.x &&
              self.collectionView.contentOffset.x + self.collectionView.bounds.size.width <= self.contentSize.width) {
@@ -81,9 +90,9 @@
 
     NSArray *attributes = [self layoutAttributesForElementsInRect:targetRect];
     for (UICollectionViewLayoutAttributes *a in attributes) {
-        if([[a representedElementKind] isEqualToString:@"LSBannerHeaderView"]) {
-            continue;
-        }
+//        if([[a representedElementKind] isEqualToString:@"LSBannerHeaderView"]) {
+//            continue;
+//        }
         CGFloat itemHorizontalCenter = a.center.x;
         if (ABS(itemHorizontalCenter - horizontalCenter) < ABS(offsetAdjustment)) {
             offsetAdjustment = itemHorizontalCenter - horizontalCenter;
@@ -104,10 +113,18 @@
     
      UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     CGRect frame = CGRectZero;
-    frame.origin.x = indexPath.item * (self.itemSize.width + self.itemSpacing);
-    if (self.sectionInset.left > 0) {
-        frame.origin.x += self.sectionInset.left;
+    if ([self shouldLayoutAsInfinite]) {
+        CGFloat x = (indexPath.item)* (self.itemSize.width + self.itemSpacing);
+        frame.origin.x = x;
     }
+    else
+    {
+        frame.origin.x = indexPath.item * (self.itemSize.width + self.itemSpacing);
+        if (self.sectionInset.left > 0) {
+            frame.origin.x += self.sectionInset.left;
+        }
+    }
+    
     // 居中对齐
     frame.origin.y = self.sectionInset.top;
     frame.size.width = self.itemSize.width;
@@ -136,18 +153,21 @@
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
 
     if (CGRectIsEmpty(rect) || rect.size.width <= 0) return nil;
+    
     NSMutableArray * layoutAttributesArr = @[].mutableCopy;
     
     CGFloat centerX = self.collectionView.contentOffset.x + self.collectionView.bounds.size.width/2.0f;
-
+    
     // 得到可见的indexpaths,使用缓存的lyoutInfo来计算得到当前rect中的attribute,并返回
     [[self.layoutInfoArr copy] enumerateObjectsUsingBlock:^(UICollectionViewLayoutAttributes * _Nonnull attributes, NSUInteger idx, BOOL * _Nonnull stop) {
         if(CGRectIntersectsRect(attributes.frame, rect)) {
             
-            if([[attributes representedElementKind] isEqualToString:@"LSBannerHeaderView"]){
-                [layoutAttributesArr addObject:attributes];
-                return;
-            }
+            //            if([[attributes representedElementKind] isEqualToString:@"LSBannerHeaderView"]){
+            //                [layoutAttributesArr addObject:attributes];
+            //                return;
+            //            }
+            
+            // 如果有第0个元素
             // tranform
             if (self.enableTransformAnimation) {
                 
@@ -165,22 +185,66 @@
             [layoutAttributesArr addObject:attributes];
         }
     }];
-    
+  
     return layoutAttributesArr;
 }
 
--(BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
-{
+-(BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds{
     return true;
 }
-#pragma mark - getters & setters
 
+- (void)storeLayout {
+    
+    if(self.layoutInfoArr.count >0) {
+        return;
+    }
+    NSInteger numberOfItems = [self numberItems];
+    NSMutableArray *subArr = @[].mutableCopy;
+    for (NSInteger item = 0; item < numberOfItems; item++){
+        // item的属性
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:0];
+        UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForItemAtIndexPath:indexPath];
+        [subArr addObject:attributes];
+        // 当有这个补充视图时，需要放开这里的注释，suplimentView属性
+        //        UICollectionViewLayoutAttributes *suplementAttributes = [self layoutAttributesForSupplementaryViewOfKind:@"LSBannerHeaderView" atIndexPath:indexPath];
+        //        if (suplementAttributes) {
+        //            [subArr addObject:suplementAttributes];
+        //        }
+    }
+    
+    //存储布局信息
+    self.layoutInfoArr = @[].mutableCopy;
+    [self.layoutInfoArr addObjectsFromArray:[subArr copy]];
+}
+
+#pragma mark - tools
+- (CGPoint)offsetScrollFromIndexPath:(NSIndexPath*)current_indexPath
+                   toTargetIndexPath:(NSIndexPath *)target_indexPath {
+    
+    UICollectionViewLayoutAttributes *targetAttr = [self layoutAttributesForItemAtIndexPath:target_indexPath];
+    UICollectionViewLayoutAttributes *attr = [self layoutAttributesForItemAtIndexPath:current_indexPath];
+    
+    CGFloat newOffsetX = targetAttr.center.x - attr.center.x;
+    CGPoint newOffset = CGPointMake(self.collectionView.contentOffset.x + newOffsetX, self.collectionView.contentOffset.y);
+    CGPoint correctOffset = [self targetContentOffsetForProposedContentOffset:newOffset];
+    return correctOffset;
+}
+
+- (NSInteger)numberItems{
+    return [self.collectionView numberOfItemsInSection:0];
+}
+#pragma mark - getters & setters
 
 - (void)setItemSize:(CGSize)item_size {
     _itemSize = item_size;
     self.transformSize = item_size;
 }
 
+- (BOOL) shouldLayoutAsInfinite {
+    return self.enableInfinite && [self.collectionView numberOfItemsInSection:0] > 2;
+}
+     
 
+     
 
 @end

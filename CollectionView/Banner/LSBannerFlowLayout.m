@@ -11,6 +11,7 @@
 #define ACTIVE_DISTANCE 680/2.0
 #define ZOOM_FACTOR 0.3
 
+
 @implementation LSBannerFlowLayout
 
 #warning need to figure it out

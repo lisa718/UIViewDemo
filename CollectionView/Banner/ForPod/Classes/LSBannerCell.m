@@ -9,14 +9,12 @@
 #import "LSBannerCell.h"
 #import "UIView+LayoutMethods.h"
 #import "HexColors.h"
-#import "UIImageView+WebCache.h"
 
 static const NSMutableAttributedString * cellLableStyledString;
 static CGFloat spaceBetweenImageAndDescription;
 
 @interface LSBannerCell ()
-@property (nonatomic,strong) UIImageView *imageView;
-@property (nonatomic,strong) UILabel *label;
+
 
 @end
 
@@ -35,8 +33,9 @@ static CGFloat spaceBetweenImageAndDescription;
        
         [self.contentView addSubview:self.imageView];
         [self.contentView addSubview:self.label];
+        self.label.hidden = YES;
 
-        [self addObserver:self forKeyPath:@"labelFont" options:NSKeyValueObservingOptionNew context:nil];
+        [self.label addObserver:self forKeyPath:@"font" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
@@ -47,7 +46,8 @@ static CGFloat spaceBetweenImageAndDescription;
 }
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:@"labelFont"];
+    [self.label removeObserver:self forKeyPath:@"font"];
+    cellLableStyledString = nil;
 }
 
 - (void)calculateLayout {
@@ -64,26 +64,35 @@ static CGFloat spaceBetweenImageAndDescription;
     self.imageView.frame = (CGRect){0,0,imageWidth,imageHeight};
     
     // label
-    self.label.ct_top = self.imageView.ct_bottom + spaceBetweenImageAndDescription;
-    self.label.ct_left = self.imageView.ct_left;
-    self.label.ct_width = totalWidth;
-    self.label.ct_height = lableRect.size.height;
+    BOOL isEmptyLabel = self.label.text == nil
+                         || [self.label.text isKindOfClass:[NSNull class]]
+                         || self.label.text.length==0;
+    
+    
+    if (!isEmptyLabel) {
+        self.label.hidden = NO;
+        // label
+        self.label.ct_top = self.imageView.ct_bottom + spaceBetweenImageAndDescription;
+        self.label.ct_left = self.imageView.ct_left;
+        self.label.ct_width = totalWidth;
+        self.label.ct_height = lableRect.size.height;
+    }
+    else {
+        self.label.hidden = YES;
+    }
 }
-
 
 + (CGSize)calulateCellSizeWithImageSize:(CGSize)imageSize {
     
-
     CGFloat totalHeight = 0;
     CGFloat totalWidth = imageSize.width;
     
     // image
     totalHeight += totalWidth*imageSize.height/imageSize.width;
-    totalHeight += spaceBetweenImageAndDescription;
     
     //
     CGRect lableRect = [cellLableStyledString boundingRectWithSize:CGSizeMake(totalWidth, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading context:nil];
-    totalHeight += lableRect.size.height;
+    totalHeight += lableRect.size.height>0?(lableRect.size.height+spaceBetweenImageAndDescription):0;
     
     return CGSizeMake(totalWidth, totalHeight);
 }
@@ -93,17 +102,19 @@ static CGFloat spaceBetweenImageAndDescription;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"labelFont"]) {
-        [cellLableStyledString setAttributedString:self.label.attributedText];
+    if ([keyPath isEqualToString:@"font"]) {
+        if (self.label.attributedText) {
+              [cellLableStyledString setAttributedString:self.label.attributedText];
+        }
     }
 }
 
 #pragma marg - getters & setters
-- (void)setEntity:(LSBannerEntity *)entity {
-    _entity = entity;
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:entity.imageName] placeholderImage:_placeholderImage];
-    self.label.text = entity.title;
-}
+//- (void)setEntity:(LSBannerEntity *)entity {
+//    _entity = entity;
+//    [self.imageView sd_setImageWithURL:[NSURL URLWithString:entity.imageName] placeholderImage:_placeholderImage];
+//    self.label.text = entity.title;
+//}
 
 - (UIImageView *)imageView {
     if (_imageView == nil) {
@@ -132,14 +143,14 @@ static CGFloat spaceBetweenImageAndDescription;
     return _label;
 }
 
-- (void)setLabelFont:(UIFont *)labelFont {
-    _labelFont = labelFont;
-    [self.label setFont:labelFont];
-}
-
-- (void)setLabelColor:(UIColor *)lableColor {
-    _labelColor = lableColor;
-    self.label.textColor = lableColor;
-}
+//- (void)setLabelFont:(UIFont *)labelFont {
+//    _labelFont = labelFont;
+//    [self.label setFont:labelFont];
+//}
+//
+//- (void)setLabelColor:(UIColor *)lableColor {
+//    _labelColor = lableColor;
+//    self.label.textColor = lableColor;
+//}
 
 @end

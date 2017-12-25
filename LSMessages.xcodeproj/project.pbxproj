@@ -40,7 +40,6 @@
 		E1483C351FD3D9D10030CA29 /* lsmessage_prompting_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1483C261FD3D9D10030CA29 /* lsmessage_prompting_error@3x.png */; };
 		E149463A1FE7630D00E24006 /* banner_data.json in Resources */ = {isa = PBXBuildFile; fileRef = E14946391FE7630D00E24006 /* banner_data.json */; };
 		E155FD3B1FEA492800714317 /* LSBannerViewWrapperController.m in Sources */ = {isa = PBXBuildFile; fileRef = E155FD3A1FEA492800714317 /* LSBannerViewWrapperController.m */; };
-		E155FD581FEAB10000714317 /* LSBannerEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E155FD501FEAB0FF00714317 /* LSBannerEntity.m */; };
 		E155FD591FEAB10000714317 /* LSBannerLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E155FD521FEAB0FF00714317 /* LSBannerLayout.m */; };
 		E155FD5A1FEAB10000714317 /* LSBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E155FD561FEAB0FF00714317 /* LSBannerCell.m */; };
 		E155FD5B1FEAB10000714317 /* LSBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E155FD571FEAB0FF00714317 /* LSBannerView.m */; };
@@ -58,6 +57,8 @@
 		E1ED70BF1FE259C100F30AB7 /* LSSizeToFit.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ED70BE1FE259C100F30AB7 /* LSSizeToFit.m */; };
 		E1ED70C21FE259D300F30AB7 /* LSSizeThatFits.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ED70C11FE259D300F30AB7 /* LSSizeThatFits.m */; };
 		E1ED70C51FE259E900F30AB7 /* LSBoundsRect.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ED70C41FE259E900F30AB7 /* LSBoundsRect.m */; };
+		E1EDE60D1FECC50E00A5FEF5 /* LSPerformance.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EDE60C1FECC50E00A5FEF5 /* LSPerformance.m */; };
+		E1EDE6101FED44E000A5FEF5 /* LSBannerEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EDE60E1FED44DF00A5FEF5 /* LSBannerEntity.m */; };
 		E1F999BF1FECABD600D461D2 /* LSFloatingLabelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F999BE1FECABD500D461D2 /* LSFloatingLabelManager.m */; };
 /* End PBXBuildFile section */
 
@@ -132,11 +133,9 @@
 		E155FD391FEA492800714317 /* LSBannerViewWrapperController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSBannerViewWrapperController.h; sourceTree = "<group>"; };
 		E155FD3A1FEA492800714317 /* LSBannerViewWrapperController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSBannerViewWrapperController.m; sourceTree = "<group>"; };
 		E155FD4F1FEAB0FF00714317 /* LSBannerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSBannerCell.h; path = ForPod/Classes/LSBannerCell.h; sourceTree = "<group>"; };
-		E155FD501FEAB0FF00714317 /* LSBannerEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSBannerEntity.m; path = ForPod/Classes/LSBannerEntity.m; sourceTree = "<group>"; };
 		E155FD511FEAB0FF00714317 /* LSBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSBannerView.h; path = ForPod/Classes/LSBannerView.h; sourceTree = "<group>"; };
 		E155FD521FEAB0FF00714317 /* LSBannerLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSBannerLayout.m; path = ForPod/Classes/LSBannerLayout.m; sourceTree = "<group>"; };
 		E155FD531FEAB0FF00714317 /* LSBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSBannerViewDelegate.h; path = ForPod/Classes/LSBannerViewDelegate.h; sourceTree = "<group>"; };
-		E155FD541FEAB0FF00714317 /* LSBannerEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSBannerEntity.h; path = ForPod/Classes/LSBannerEntity.h; sourceTree = "<group>"; };
 		E155FD551FEAB0FF00714317 /* LSBannerLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSBannerLayout.h; path = ForPod/Classes/LSBannerLayout.h; sourceTree = "<group>"; };
 		E155FD561FEAB0FF00714317 /* LSBannerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSBannerCell.m; path = ForPod/Classes/LSBannerCell.m; sourceTree = "<group>"; };
 		E155FD571FEAB0FF00714317 /* LSBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSBannerView.m; path = ForPod/Classes/LSBannerView.m; sourceTree = "<group>"; };
@@ -169,6 +168,10 @@
 		E1ED70C11FE259D300F30AB7 /* LSSizeThatFits.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSSizeThatFits.m; sourceTree = "<group>"; };
 		E1ED70C31FE259E900F30AB7 /* LSBoundsRect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSBoundsRect.h; sourceTree = "<group>"; };
 		E1ED70C41FE259E900F30AB7 /* LSBoundsRect.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSBoundsRect.m; sourceTree = "<group>"; };
+		E1EDE60B1FECC50E00A5FEF5 /* LSPerformance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSPerformance.h; sourceTree = "<group>"; };
+		E1EDE60C1FECC50E00A5FEF5 /* LSPerformance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSPerformance.m; sourceTree = "<group>"; };
+		E1EDE60E1FED44DF00A5FEF5 /* LSBannerEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSBannerEntity.m; sourceTree = "<group>"; };
+		E1EDE60F1FED44DF00A5FEF5 /* LSBannerEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSBannerEntity.h; sourceTree = "<group>"; };
 		E1F999BD1FECABD500D461D2 /* LSFloatingLabelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSFloatingLabelManager.h; path = ForPod/LSFloatingLabelManager.h; sourceTree = "<group>"; };
 		E1F999BE1FECABD500D461D2 /* LSFloatingLabelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSFloatingLabelManager.m; path = ForPod/LSFloatingLabelManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -234,6 +237,7 @@
 		E1483B891FD3BD790030CA29 = {
 			isa = PBXGroup;
 			children = (
+				E1F99A081FECB3D700D461D2 /* Performance */,
 				E1F999B91FEBFFA300D461D2 /* Window */,
 				E1999B9F1FE65CA900AA4C22 /* CollectionView */,
 				E1ED70AC1FE1759C00F30AB7 /* TableView */,
@@ -333,10 +337,10 @@
 		E149462C1FE75E4700E24006 /* Banner */ = {
 			isa = PBXGroup;
 			children = (
+				E1EDE60F1FED44DF00A5FEF5 /* LSBannerEntity.h */,
+				E1EDE60E1FED44DF00A5FEF5 /* LSBannerEntity.m */,
 				E155FD4F1FEAB0FF00714317 /* LSBannerCell.h */,
 				E155FD561FEAB0FF00714317 /* LSBannerCell.m */,
-				E155FD541FEAB0FF00714317 /* LSBannerEntity.h */,
-				E155FD501FEAB0FF00714317 /* LSBannerEntity.m */,
 				E155FD551FEAB0FF00714317 /* LSBannerLayout.h */,
 				E155FD521FEAB0FF00714317 /* LSBannerLayout.m */,
 				E155FD511FEAB0FF00714317 /* LSBannerView.h */,
@@ -447,6 +451,15 @@
 				E1F999BE1FECABD500D461D2 /* LSFloatingLabelManager.m */,
 			);
 			path = Window;
+			sourceTree = "<group>";
+		};
+		E1F99A081FECB3D700D461D2 /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				E1EDE60B1FECC50E00A5FEF5 /* LSPerformance.h */,
+				E1EDE60C1FECC50E00A5FEF5 /* LSPerformance.m */,
+			);
+			path = Performance;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -659,6 +672,7 @@
 				E155FD5A1FEAB10000714317 /* LSBannerCell.m in Sources */,
 				E155FD671FEAB11400714317 /* LSBannerFooterTitleView.m in Sources */,
 				E155FD5B1FEAB10000714317 /* LSBannerView.m in Sources */,
+				E1EDE60D1FECC50E00A5FEF5 /* LSPerformance.m in Sources */,
 				E1B38BE91FDD176900408309 /* ViewControllerTestTableView.m in Sources */,
 				E1483BF51FD3D8F80030CA29 /* LSMessage.m in Sources */,
 				E1ED70B81FE20D6C00F30AB7 /* LSHeightCalculationViewController.m in Sources */,
@@ -668,7 +682,6 @@
 				E110D38B1FDFF5280030014E /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				E1ED70C21FE259D300F30AB7 /* LSSizeThatFits.m in Sources */,
 				E155FD591FEAB10000714317 /* LSBannerLayout.m in Sources */,
-				E155FD581FEAB10000714317 /* LSBannerEntity.m in Sources */,
 				E1999BA21FE65D3C00AA4C22 /* LSCollectionViewController.m in Sources */,
 				E1ED70C51FE259E900F30AB7 /* LSBoundsRect.m in Sources */,
 				E1483BF41FD3D8F80030CA29 /* LSMessageView.m in Sources */,
@@ -677,6 +690,7 @@
 				E1F999BF1FECABD600D461D2 /* LSFloatingLabelManager.m in Sources */,
 				E1999BA51FE6624000AA4C22 /* LSCollectionViewCell.m in Sources */,
 				E1ED70BF1FE259C100F30AB7 /* LSSizeToFit.m in Sources */,
+				E1EDE6101FED44E000A5FEF5 /* LSBannerEntity.m in Sources */,
 				E1483B971FD3BD790030CA29 /* AppDelegate.m in Sources */,
 				E110D3811FDF820D0030014E /* UITableViewCell+Test.m in Sources */,
 			);

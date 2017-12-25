@@ -32,6 +32,7 @@
         [self addSubview:self.collectionView];
         self.backgroundColor = [UIColor whiteColor];
         self.clipsToBounds = YES;
+
     }
     return self;
 }
@@ -59,6 +60,21 @@
 #pragma mark - public
 - (void)reloadData {
     [self.collectionView reloadData];
+   
+    // 要默认滚动到中间位置
+    NSIndexPath * currentIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    NSIndexPath * targetIndexPath = [NSIndexPath indexPathForItem:[self.collectionView numberOfItemsInSection:0]/3 inSection:0];
+    
+//    CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndexPath toTargetIndexPath:targetIndexPath];
+    
+    UICollectionViewLayoutAttributes *targetAttr = [self.customLayout layoutAttributesForItemAtIndexPath:targetIndexPath];
+    UICollectionViewLayoutAttributes *attr = [self.customLayout layoutAttributesForItemAtIndexPath:currentIndexPath];
+    
+    CGFloat newOffsetX = targetAttr.center.x - attr.center.x - (self.collectionView.ct_width/2 -  self.customLayout.itemSize.width/2.0);
+    CGPoint newOffset = CGPointMake(self.collectionView.contentOffset.x + newOffsetX, self.collectionView.contentOffset.y);
+    // 直接改变offset会引起动画暂停的问题，那是因为setContentOffset还会去调用didScroll代理
+    [self.collectionView setContentOffset:newOffset animated:NO];
+    
 
 }
 
@@ -68,25 +84,50 @@
     return CGSizeMake(size.width, collectionViewSize.height+self.sectionInset.top+self.sectionInset.bottom);
 }
 
-// 原理：改变scrollview的contentOffset来翻页
+// 原理：改变scrollview的contentOffset或者bounds来翻页
 - (void)flipNext {
     
-    // 要根据当前的offset，来计算下一页的新的offset，
-    CGPoint currentOffset = self.collectionView.contentOffset;
+//    // 要根据当前的offset，来计算下一页的新的offset，
+//    CGPoint currentOffset = self.collectionView.contentOffset;
+//
+//    // 使用布局函数计算target的contentOffset
+//    CGPoint newoffset = [self.collectionView.collectionViewLayout targetContentOffsetForProposedContentOffset:CGPointMake(currentOffset.x+self.collectionView.ct_width,currentOffset.y) withScrollingVelocity:(CGPoint){0,0}];
+//
+//    // 当当前的offer是最后一个的时候，需要回到0
+//    if (newoffset.x == self.collectionView.contentOffset.x) {
+//        newoffset = CGPointMake(0, newoffset.y);
+//    }
     
-    // 使用布局函数计算target的contentOffset
-    CGPoint newoffset = [self.collectionView.collectionViewLayout targetContentOffsetForProposedContentOffset:CGPointMake(currentOffset.x+self.collectionView.ct_width,currentOffset.y) withScrollingVelocity:(CGPoint){0,0}];
-    
-    // 当当前的offer是最后一个的时候，需要回到0
-    if (newoffset.x == self.collectionView.contentOffset.x) {
-        newoffset = CGPointMake(0, newoffset.y);
+    NSIndexPath * currentIndex = [self currentShowingItem];
+    if (currentIndex == nil) {
+        return;
     }
     
-    [self.collectionView setContentOffset:newoffset animated:YES];
+    NSInteger current = currentIndex.item;
+    NSIndexPath *targetIndexPath;
+    if (self.enableInfinite) {
+        if (current == 1 ) {
+            targetIndexPath = [NSIndexPath indexPathForItem:current + _numberOfItems + 1 inSection:0];
+        }
+        else if (current == self.numberOfItems - 2) {
+            targetIndexPath = [NSIndexPath indexPathForItem:current - _numberOfItems + 1 inSection:0];
+            
+        }
+        else {
+            targetIndexPath = [NSIndexPath indexPathForItem:current+1 inSection:0];
+
+        }
+    }
+    else {
+        targetIndexPath = [NSIndexPath indexPathForItem:current+1 inSection:0];
+    }
+  
+    CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndex toTargetIndexPath:targetIndexPath];
+    
+    [self.collectionView setContentOffset:correctOffset animated:YES];
     
 }
 
-//- (void)calculateCollectionView
 
 - (NSIndexPath *)currentShowingItem{
     
@@ -95,7 +136,7 @@
         UICollectionViewLayoutAttributes * attribute = [self.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:indexPath];
         CGPoint center = [self.collectionView convertPoint:self.collectionView.center fromView:self];
         if (CGRectContainsPoint(attribute.frame,center)) {
-            NSLog(@"%@",indexPath);
+//            NSLog(@"%@",indexPath);
             return indexPath;
             
         }
@@ -103,6 +144,10 @@
     return nil;
 }
 #pragma mark - tool
+- (BOOL) shouldLayoutAsInfinite {
+    
+    return _enableInfinite && _numberOfItems > 2;
+}
 // 判断View是否显示在屏幕上
 + (BOOL)isDisplayedInScreen:(UIView*)view;
 {
@@ -159,25 +204,32 @@
 - (void)fireTimer {
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fire) object:nil];
-    [self performSelector:@selector(fire) withObject:nil afterDelay:2];
-    
+    if (_timer == nil) {
+        [self performSelector:@selector(fire) withObject:nil afterDelay:2];
+    }
 }
 
 - (void)fire {
-    static NSInteger timerCount = 0;
     [self.timer fire];
-    timerCount++;
-    //    NSLog(@"%ld",timerCount);
-    
 }
+
+- (void)stopTimer {// called on viewDidDisappear
+    if (_timer != nil) {
+        [_timer invalidate];
+        self.timer = nil;
+    }
+}
+
+
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self.timer invalidate];
-    self.timer = nil;
+    [self stopTimer];
 }
+
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {     // called when scroll view grinds to a halt
     [self fireTimer];
+   
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -186,35 +238,65 @@
     if (currentIndex == nil) {
         return;
     }
-    NSInteger current = currentIndex.item+1;
+    
+    NSInteger current = currentIndex.item;
+    if (current == 1 ) {
+        NSIndexPath *targetIndexPath = [NSIndexPath indexPathForItem:current + _numberOfItems inSection:0];
+
+        CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndex toTargetIndexPath:targetIndexPath];
+        // 直接改变offset会引起动画暂停的问题，那是因为setContentOffset还会去调用didScroll代理
+//        [self.collectionView setContentOffset:correctOffset animated:NO];
+        CGRect scrollBounds = scrollView.bounds;
+        scrollBounds.origin = correctOffset;
+        scrollView.bounds = scrollBounds;
+        current = current+_numberOfItems;
+    }
+    else if (current == self.numberOfItems - 2) {
+        NSIndexPath *targetIndexPath = [NSIndexPath indexPathForItem:current - _numberOfItems inSection:0];
+
+        CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndex toTargetIndexPath:targetIndexPath];
+//        [self.collectionView setContentOffset:correctOffset animated:NO];
+        CGRect scrollBounds = scrollView.bounds;
+        scrollBounds.origin = correctOffset;
+        scrollView.bounds = scrollBounds;
+        current = current - _numberOfItems;
+    }
+
+    
+    current = current%_numberOfItems + 1;
     if ([self.delegate respondsToSelector:@selector(bannerViewDidScroll:forCurrentItemAtIndex:)]) {
         [self.delegate bannerViewDidScroll:self forCurrentItemAtIndex:current];
     }
 }
 
 #pragma mark - UICollectionViewDataSource
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if ([self.dataSource respondsToSelector:@selector(numberOfItemsInBannerView:)]) {
         self.numberOfItems = [self.dataSource numberOfItemsInBannerView:self];
     }
+    
     return self.numberOfItems;
 }
-
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     LSBannerCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([LSBannerCell class]) forIndexPath:indexPath];
+    cell.label.text = [@(indexPath.item) stringValue];
     
 //    // 捕获上下文cell和indexPath，用于让外面配置cell
 //    if (self.dataSource.configureCellBlock) {
 //        self.dataSource.configureCellBlock(cell, indexPath.item);
 //    }
-    
-    if ([self.dataSource respondsToSelector:@selector(bannerView:cellForConfig:index:)]) {
-        [self.dataSource bannerView:self cellForConfig:(&cell) index:indexPath.item];
+    NSInteger index = indexPath.item;
+    if ([self shouldLayoutAsInfinite]) {
+        index = (index)%(_numberOfItems);
     }
-    
+
+    if ([self.dataSource respondsToSelector:@selector(bannerView:cellForConfig:index:)]) {
+        [self.dataSource bannerView:self cellForConfig:(&cell) index:index];
+    }
     return cell;
     
 }
@@ -234,7 +316,7 @@
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(bannerView:didSelectItemAtIndex:)]) {
-        [self.delegate bannerView:self didSelectItemAtIndex:indexPath.item];
+        [self.delegate bannerView:self didSelectItemAtIndex:indexPath.item%_numberOfItems];
     }
 }
 
@@ -250,8 +332,7 @@
         _collectionView.showsVerticalScrollIndicator = NO;
         [_collectionView registerClass:[LSBannerCell class] forCellWithReuseIdentifier:NSStringFromClass([LSBannerCell class])];
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [_collectionView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-        
+        [_collectionView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew| NSKeyValueObservingOptionOld context:nil];
     }
     return _collectionView;
 }
@@ -265,7 +346,7 @@
 }
 
 - (NSTimer *)timer {
-    if (_timer == nil) {
+    if (_timer == nil && self.enableAutoScroll) {
         _timer = [NSTimer scheduledNonRetainTimerWithTimeInterval:3 target:self selector:@selector(flipNext) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     }
@@ -298,5 +379,18 @@
     [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
+- (void)setEnableInfinite:(BOOL)enableInfinite {
+    _enableInfinite = enableInfinite;
+    self.customLayout.enableInfinite = enableInfinite;
+    [self.collectionView.collectionViewLayout invalidateLayout];
+}
+
+- (NSInteger)numberOfItems {
+    if ([self shouldLayoutAsInfinite] && _numberOfItems > 0)
+    {
+        return (_numberOfItems*3);
+    }
+    return _numberOfItems;
+}
 
 @end

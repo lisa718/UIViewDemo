@@ -19,7 +19,7 @@
 //@property (nonatomic,copy) void(^configureCellBlock)(LSBannerCell *cell,NSInteger index);
 //- (LSBannerCell *)bannerView:(LSBannerView *)bannerView cellForItemAtIndex:(NSInteger)index;
 
-- (void)bannerView:(LSBannerView *)bannerVIew cellForConfig:(LSBannerCell * __strong *)cell index:(NSInteger)index;
+- (void)bannerView:(LSBannerView *)bannerView cellForConfig:(LSBannerCell * __autoreleasing *)cell index:(NSInteger)index;
 
 @end
 

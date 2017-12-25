@@ -23,12 +23,16 @@
 @property (nonatomic,strong) UIImage        *placeholderItemImage; // each banner image
 
 @property (nonatomic,assign) BOOL           enableTransformAnimation;
+@property (nonatomic,assign) BOOL           enableInfinite;
+@property (nonatomic,assign) BOOL           enableAutoScroll;
 @property (nonatomic,assign,readonly) NSInteger numberOfItems;
 
 
 // action
 - (void)reloadData;
 
+- (void)stopTimer;// called on viewDidDisappear
+- (void)fireTimer;// called on viewWillAppear
 
 
 

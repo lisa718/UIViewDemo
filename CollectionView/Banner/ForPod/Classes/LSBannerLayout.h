@@ -14,7 +14,9 @@
 @property (nonatomic,assign) CGFloat        itemSpacing;
 @property (nonatomic,assign) CGSize         itemSize;
 @property (nonatomic,assign) UIEdgeInsets   sectionInset;
+@property (nonatomic,assign) BOOL           enableInfinite;
 @property (nonatomic,assign) BOOL           enableTransformAnimation;
 
-
+- (CGPoint)offsetScrollFromIndexPath:(NSIndexPath*)current_indexPath
+                   toTargetIndexPath:(NSIndexPath *)target_indexPath;
 @end

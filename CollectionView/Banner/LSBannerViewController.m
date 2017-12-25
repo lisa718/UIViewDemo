@@ -213,7 +213,9 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     LSBannerCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([LSBannerCell class]) forIndexPath:indexPath];
-    cell.entity = self.bannerDataArray[indexPath.item];
+    LSBannerEntity *entity = self.bannerDataArray[indexPath.item];
+    cell.label.text = entity.title;
+    cell.imageView.image = [UIImage imageNamed:entity.imageName];
     return cell;
 }
 

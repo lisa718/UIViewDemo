@@ -10,11 +10,8 @@
 #import "LSBannerEntity.h"
 @interface LSBannerCell : UICollectionViewCell
 
-@property (nonatomic,strong) LSBannerEntity *entity;
-@property (nonatomic,strong) UIImage    *placeholderImage;
-#warning better method?
-@property (nonatomic,strong) UIFont     *labelFont;
-@property (nonatomic,strong) UIColor    *labelColor;
+@property (nonatomic,strong) UIImageView    *imageView;
+@property (nonatomic,strong) UILabel        *label;
 
 + (CGSize)calulateCellSizeWithImageSize:(CGSize)imageSize;
 + (void)setSpaceBetweenImageAndDescription:(CGFloat)space;

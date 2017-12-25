@@ -12,6 +12,6 @@
 
 + (void)show;
 + (void)hide;
-+ (void)updateTextWith:(NSString *)text;
++ (void)updateTextWith:(NSString *)styledText;
 
 @end
