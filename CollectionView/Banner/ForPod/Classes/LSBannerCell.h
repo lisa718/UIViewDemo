@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LSBannerEntity.h"
 
 
 @interface LSBannerCell : UICollectionViewCell
