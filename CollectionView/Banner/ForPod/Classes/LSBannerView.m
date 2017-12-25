@@ -61,20 +61,22 @@
 - (void)reloadData {
     [self.collectionView reloadData];
    
-    // 要默认滚动到中间位置
-    NSIndexPath * currentIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-    NSIndexPath * targetIndexPath = [NSIndexPath indexPathForItem:[self.collectionView numberOfItemsInSection:0]/3 inSection:0];
-    
-//    CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndexPath toTargetIndexPath:targetIndexPath];
-    
-    UICollectionViewLayoutAttributes *targetAttr = [self.customLayout layoutAttributesForItemAtIndexPath:targetIndexPath];
-    UICollectionViewLayoutAttributes *attr = [self.customLayout layoutAttributesForItemAtIndexPath:currentIndexPath];
-    
-    CGFloat newOffsetX = targetAttr.center.x - attr.center.x - (self.collectionView.ct_width/2 -  self.customLayout.itemSize.width/2.0);
-    CGPoint newOffset = CGPointMake(self.collectionView.contentOffset.x + newOffsetX, self.collectionView.contentOffset.y);
-    // 直接改变offset会引起动画暂停的问题，那是因为setContentOffset还会去调用didScroll代理
-    [self.collectionView setContentOffset:newOffset animated:NO];
-    
+    // 设置初始滚动
+    if (self.enableInfinite) {
+        // 要默认滚动到中间位置
+        NSIndexPath * currentIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+        NSIndexPath * targetIndexPath = [NSIndexPath indexPathForItem:[self.collectionView numberOfItemsInSection:0]/3 inSection:0];
+        
+        //    CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndexPath toTargetIndexPath:targetIndexPath];
+        
+        UICollectionViewLayoutAttributes *targetAttr = [self.customLayout layoutAttributesForItemAtIndexPath:targetIndexPath];
+        UICollectionViewLayoutAttributes *attr = [self.customLayout layoutAttributesForItemAtIndexPath:currentIndexPath];
+        
+        CGFloat newOffsetX = targetAttr.center.x - attr.center.x - (self.collectionView.ct_width/2 -  self.customLayout.itemSize.width/2.0);
+        CGPoint newOffset = CGPointMake(self.collectionView.contentOffset.x + newOffsetX, self.collectionView.contentOffset.y);
+        // 直接改变offset会引起动画暂停的问题，那是因为setContentOffset还会去调用didScroll代理
+        [self.collectionView setContentOffset:newOffset animated:NO];
+    }
 
 }
 
@@ -87,17 +89,6 @@
 // 原理：改变scrollview的contentOffset或者bounds来翻页
 - (void)flipNext {
     
-//    // 要根据当前的offset，来计算下一页的新的offset，
-//    CGPoint currentOffset = self.collectionView.contentOffset;
-//
-//    // 使用布局函数计算target的contentOffset
-//    CGPoint newoffset = [self.collectionView.collectionViewLayout targetContentOffsetForProposedContentOffset:CGPointMake(currentOffset.x+self.collectionView.ct_width,currentOffset.y) withScrollingVelocity:(CGPoint){0,0}];
-//
-//    // 当当前的offer是最后一个的时候，需要回到0
-//    if (newoffset.x == self.collectionView.contentOffset.x) {
-//        newoffset = CGPointMake(0, newoffset.y);
-//    }
-    
     NSIndexPath * currentIndex = [self currentShowingItem];
     if (currentIndex == nil) {
         return;
@@ -105,6 +96,7 @@
     
     NSInteger current = currentIndex.item;
     NSIndexPath *targetIndexPath;
+    // 无限模式
     if (self.enableInfinite) {
         if (current == 1 ) {
             targetIndexPath = [NSIndexPath indexPathForItem:current + _numberOfItems + 1 inSection:0];
@@ -117,15 +109,34 @@
             targetIndexPath = [NSIndexPath indexPathForItem:current+1 inSection:0];
 
         }
+        CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndex toTargetIndexPath:targetIndexPath];
+        
+        [self.collectionView setContentOffset:correctOffset animated:YES];
     }
+//    else {
+//
+//        targetIndexPath = [NSIndexPath indexPathForItem:current+1 inSection:0];
+//
+//        CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndex toTargetIndexPath:targetIndexPath];
+//
+//        [self.collectionView setContentOffset:correctOffset animated:YES];
+//    }
     else {
-        targetIndexPath = [NSIndexPath indexPathForItem:current+1 inSection:0];
+        // 要根据当前的offset，来计算下一页的新的offset，
+        CGPoint currentOffset = self.collectionView.contentOffset;
+
+        // 使用布局函数计算target的contentOffset
+        CGPoint newoffset = [self.collectionView.collectionViewLayout targetContentOffsetForProposedContentOffset:CGPointMake(currentOffset.x+self.collectionView.ct_width,currentOffset.y) withScrollingVelocity:(CGPoint){0,0}];
+
+        // 当当前的offer是最后一个的时候，需要回到0
+        if (newoffset.x == self.collectionView.contentOffset.x) {
+            newoffset = CGPointMake(0, newoffset.y);
+        }
+        [self.collectionView setContentOffset:newoffset animated:YES];
+
     }
   
-    CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndex toTargetIndexPath:targetIndexPath];
-    
-    [self.collectionView setContentOffset:correctOffset animated:YES];
-    
+   
 }
 
 
@@ -239,29 +250,32 @@
         return;
     }
     
+    
+    
     NSInteger current = currentIndex.item;
-    if (current == 1 ) {
-        NSIndexPath *targetIndexPath = [NSIndexPath indexPathForItem:current + _numberOfItems inSection:0];
+    if (self.enableInfinite) {
+        if (current == 1 ) {
+            NSIndexPath *targetIndexPath = [NSIndexPath indexPathForItem:current + _numberOfItems inSection:0];
 
-        CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndex toTargetIndexPath:targetIndexPath];
-        // 直接改变offset会引起动画暂停的问题，那是因为setContentOffset还会去调用didScroll代理
-//        [self.collectionView setContentOffset:correctOffset animated:NO];
-        CGRect scrollBounds = scrollView.bounds;
-        scrollBounds.origin = correctOffset;
-        scrollView.bounds = scrollBounds;
-        current = current+_numberOfItems;
+            CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndex toTargetIndexPath:targetIndexPath];
+            // 直接改变offset会引起动画暂停的问题，那是因为setContentOffset还会去调用didScroll代理
+    //        [self.collectionView setContentOffset:correctOffset animated:NO];
+            CGRect scrollBounds = scrollView.bounds;
+            scrollBounds.origin = correctOffset;
+            scrollView.bounds = scrollBounds;
+            current = current+_numberOfItems;
+        }
+        else if (current == self.numberOfItems - 2) {
+            NSIndexPath *targetIndexPath = [NSIndexPath indexPathForItem:current - _numberOfItems inSection:0];
+
+            CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndex toTargetIndexPath:targetIndexPath];
+    //        [self.collectionView setContentOffset:correctOffset animated:NO];
+            CGRect scrollBounds = scrollView.bounds;
+            scrollBounds.origin = correctOffset;
+            scrollView.bounds = scrollBounds;
+            current = current - _numberOfItems;
+        }
     }
-    else if (current == self.numberOfItems - 2) {
-        NSIndexPath *targetIndexPath = [NSIndexPath indexPathForItem:current - _numberOfItems inSection:0];
-
-        CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndex toTargetIndexPath:targetIndexPath];
-//        [self.collectionView setContentOffset:correctOffset animated:NO];
-        CGRect scrollBounds = scrollView.bounds;
-        scrollBounds.origin = correctOffset;
-        scrollView.bounds = scrollBounds;
-        current = current - _numberOfItems;
-    }
-
     
     current = current%_numberOfItems + 1;
     if ([self.delegate respondsToSelector:@selector(bannerViewDidScroll:forCurrentItemAtIndex:)]) {
@@ -283,7 +297,6 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     LSBannerCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([LSBannerCell class]) forIndexPath:indexPath];
-    cell.label.text = [@(indexPath.item) stringValue];
     
 //    // 捕获上下文cell和indexPath，用于让外面配置cell
 //    if (self.dataSource.configureCellBlock) {
@@ -297,6 +310,7 @@
     if ([self.dataSource respondsToSelector:@selector(bannerView:cellForConfig:index:)]) {
         [self.dataSource bannerView:self cellForConfig:(&cell) index:index];
     }
+
     return cell;
     
 }

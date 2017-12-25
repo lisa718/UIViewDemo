@@ -111,7 +111,7 @@
     LSBannerEntity *entity = self.bannerDataArray[index];
     [tagertCell.imageView sd_setImageWithURL:[NSURL URLWithString:entity.imageName] placeholderImage:nil];
 //    tagertCell.label.font = [UIFont systemFontOfSize:30];
-//    tagertCell.label.text = [@(index) stringValue];
+    tagertCell.label.text = entity.title;
 //    [LSBannerCell setSpaceBetweenImageAndDescription:-10];
 }
 
@@ -126,7 +126,7 @@
         _bannerView.delegate = self;
         _bannerView.enableTransformAnimation = YES;
         _bannerView.enableAutoScroll = YES;
-        _bannerView.enableInfinite = YES;
+        _bannerView.enableInfinite = NO;
     }
     return _bannerView;
 }

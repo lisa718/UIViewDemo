@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "LSBannerEntity.h"
+
+
 @interface LSBannerCell : UICollectionViewCell
 
 @property (nonatomic,strong) UIImageView    *imageView;
@@ -16,6 +18,6 @@
 + (CGSize)calulateCellSizeWithImageSize:(CGSize)imageSize;
 + (void)setSpaceBetweenImageAndDescription:(CGFloat)space;
 
-
-
 @end
+
+

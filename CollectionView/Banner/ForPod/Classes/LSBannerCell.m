@@ -13,10 +13,6 @@
 static const NSMutableAttributedString * cellLableStyledString;
 static CGFloat spaceBetweenImageAndDescription;
 
-@interface LSBannerCell ()
-
-
-@end
 
 @implementation LSBannerCell
 + (void)initialize {
@@ -33,9 +29,9 @@ static CGFloat spaceBetweenImageAndDescription;
        
         [self.contentView addSubview:self.imageView];
         [self.contentView addSubview:self.label];
-        self.label.hidden = YES;
-
+        
         [self.label addObserver:self forKeyPath:@"font" options:NSKeyValueObservingOptionNew context:nil];
+        [self.label addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
@@ -47,6 +43,7 @@ static CGFloat spaceBetweenImageAndDescription;
 
 - (void)dealloc {
     [self.label removeObserver:self forKeyPath:@"font"];
+    [self.label removeObserver:self forKeyPath:@"text"];
     cellLableStyledString = nil;
 }
 
@@ -64,22 +61,23 @@ static CGFloat spaceBetweenImageAndDescription;
     self.imageView.frame = (CGRect){0,0,imageWidth,imageHeight};
     
     // label
-    BOOL isEmptyLabel = self.label.text == nil
-                         || [self.label.text isKindOfClass:[NSNull class]]
-                         || self.label.text.length==0;
-    
+    BOOL isEmptyLabel = [[self class] isEmptyLabel:self.label];
     
     if (!isEmptyLabel) {
-        self.label.hidden = NO;
         // label
         self.label.ct_top = self.imageView.ct_bottom + spaceBetweenImageAndDescription;
         self.label.ct_left = self.imageView.ct_left;
         self.label.ct_width = totalWidth;
         self.label.ct_height = lableRect.size.height;
     }
-    else {
-        self.label.hidden = YES;
-    }
+
+}
+
++ (BOOL)isEmptyLabel:(UILabel*)label {
+    BOOL isEmptyLabel = label.text == nil
+    || [label.text isKindOfClass:[NSNull class]]
+    || label.text.length==0;
+    return isEmptyLabel;
 }
 
 + (CGSize)calulateCellSizeWithImageSize:(CGSize)imageSize {
@@ -102,20 +100,27 @@ static CGFloat spaceBetweenImageAndDescription;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"font"]) {
+    if ([keyPath isEqualToString:@"font"] && !self.label.hidden) {
+        if (cellLableStyledString == nil) {
+            cellLableStyledString = [[NSMutableAttributedString alloc] initWithAttributedString:_label.attributedText];
+        }
         if (self.label.attributedText) {
               [cellLableStyledString setAttributedString:self.label.attributedText];
+        }
+    }
+    else  if ([keyPath isEqualToString:@"text"] && !self.label.hidden) {
+        if (cellLableStyledString == nil) {
+            cellLableStyledString = [[NSMutableAttributedString alloc] initWithAttributedString:_label.attributedText];
+           
+        }
+        
+        if (self.label.attributedText) {
+            [cellLableStyledString setAttributedString:self.label.attributedText];
         }
     }
 }
 
 #pragma marg - getters & setters
-//- (void)setEntity:(LSBannerEntity *)entity {
-//    _entity = entity;
-//    [self.imageView sd_setImageWithURL:[NSURL URLWithString:entity.imageName] placeholderImage:_placeholderImage];
-//    self.label.text = entity.title;
-//}
-
 - (UIImageView *)imageView {
     if (_imageView == nil) {
         _imageView = [[UIImageView alloc] init];
@@ -133,21 +138,10 @@ static CGFloat spaceBetweenImageAndDescription;
         _label.numberOfLines = 1;
         _label.lineBreakMode = NSLineBreakByTruncatingTail;
         _label.font = [UIFont systemFontOfSize:15];
-        if (cellLableStyledString == nil) {
-            cellLableStyledString = [[NSMutableAttributedString alloc] initWithAttributedString:_label.attributedText];
-        }
+
     }
     return _label;
 }
 
-//- (void)setLabelFont:(UIFont *)labelFont {
-//    _labelFont = labelFont;
-//    [self.label setFont:labelFont];
-//}
-//
-//- (void)setLabelColor:(UIColor *)lableColor {
-//    _labelColor = lableColor;
-//    self.label.textColor = lableColor;
-//}
-
 @end
+
