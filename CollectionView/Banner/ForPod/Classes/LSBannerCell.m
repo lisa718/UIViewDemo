@@ -120,9 +120,6 @@ static CGFloat spaceBetweenImageAndDescription;
     if (_imageView == nil) {
         _imageView = [[UIImageView alloc] init];
         _imageView.contentMode = UIViewContentModeScaleToFill;
-#warning need to optimize
-        _imageView.layer.cornerRadius = 6.0;
-        _imageView.layer.masksToBounds = YES;
         _imageView.backgroundColor = [UIColor lightGrayColor];
     }
     return _imageView;
