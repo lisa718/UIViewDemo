@@ -14,8 +14,9 @@
 @property (nonatomic,strong) UIImageView    *imageView;
 @property (nonatomic,strong) UILabel        *label;
 
-+ (CGSize)calulateCellSizeWithImageSize:(CGSize)imageSize;
 + (void)setSpaceBetweenImageAndDescription:(CGFloat)space;
++ (void)setImageSize:(CGSize)image_size;
++ (void)setTitleHeight:(CGFloat)title_height;
 
 @end
 

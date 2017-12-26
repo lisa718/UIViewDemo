@@ -12,7 +12,7 @@
 #import "LSBannerLayout.h"
 #import "NSTimer+NonRetain.h"
 
-@interface LSBannerView ()<UICollectionViewDataSource,UICollectionViewDelegate>
+@interface LSBannerView ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDataSourcePrefetching>
 //
 @property (nonatomic,strong) UICollectionView * collectionView;
 @property (nonatomic,strong) LSBannerLayout * customLayout;
@@ -39,7 +39,9 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.collectionView.frame = CGRectMake(0, 0, self.ct_width, 200);
+    self.collectionView.frame = CGRectMake(0, 0, self.ct_width, self.ct_height);
+    self.collectionView.contentInset = UIEdgeInsetsZero;
+//    [self.collectionView sizeToFit];
 }
 
 
@@ -80,9 +82,8 @@
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
-    CGSize collectionViewSize = [LSBannerCell calulateCellSizeWithImageSize:self.imageSize];
-//    UIEdgeInsets sectionInset = [self calculateSectionInset];
-    return CGSizeMake(size.width, collectionViewSize.height+self.sectionInset.top+self.sectionInset.bottom);
+    CGFloat height = self.imageSize.height + self.titleHeight + self.imageAndTitleSpacing+self.sectionInset.top + self.sectionInset.bottom;
+    return CGSizeMake(size.width, height);
 }
 
 // 原理：改变scrollview的contentOffset或者bounds来翻页
@@ -112,14 +113,6 @@
         
         [self.collectionView setContentOffset:correctOffset animated:YES];
     }
-//    else {
-//
-//        targetIndexPath = [NSIndexPath indexPathForItem:current+1 inSection:0];
-//
-//        CGPoint correctOffset = [self.customLayout offsetScrollFromIndexPath:currentIndex toTargetIndexPath:targetIndexPath];
-//
-//        [self.collectionView setContentOffset:correctOffset animated:YES];
-//    }
     else {
         // 要根据当前的offset，来计算下一页的新的offset，
         CGPoint currentOffset = self.collectionView.contentOffset;
@@ -249,8 +242,6 @@
         return;
     }
     
-    
-    
     NSInteger current = currentIndex.item;
     if (self.enableInfinite) {
         if (current == 1 ) {
@@ -308,11 +299,40 @@
 
     if ([self.dataSource respondsToSelector:@selector(bannerView:cellForConfig:index:)]) {
         [self.dataSource bannerView:self cellForConfig:(&cell) index:index];
+
     }
 
     return cell;
     
 }
+
+//- (void)collectionView:(UICollectionView *)collectionView prefetchItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths NS_AVAILABLE_IOS(10_0) {
+//    [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if ([self.dataSource respondsToSelector:@selector(bannerView:prefetchBannerImageAtIndexPaths:)]) {
+//            NSInteger index = obj.item;
+//            if ([self shouldLayoutAsInfinite]) {
+//                index = (index)%(_numberOfItems);
+//            }
+//            NSURL * imageURL = [self.dataSource bannerView:self prefetchBannerImageAtIndexPaths:index];
+//            // download image asyn
+//            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//                NSError *error;
+//                NSData * imageData = [NSData dataWithContentsOfURL:imageURL options:0 error:&error];
+//                if (error != nil){
+//                    return ;
+//                }
+//                UIImage * image = [UIImage imageWithData:imageData];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    LSBannerCell * cell = (LSBannerCell *)[collectionView cellForItemAtIndexPath:obj];
+//                    cell.imageView.image = image;
+//                });
+//
+//
+//            });
+//        }
+//    }];
+//
+//}
 
 //- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
 //
@@ -340,6 +360,9 @@
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.customLayout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
+//        if (@available(iOS 10, *)) {
+//            _collectionView.prefetchDataSource = self;
+//        }
         _collectionView.backgroundColor = [UIColor whiteColor];;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
@@ -369,33 +392,60 @@
 - (void)setItemSpacing:(CGFloat)itemSpacing {
     _itemSpacing = itemSpacing;
     self.customLayout.itemSpacing = itemSpacing;
-    [self.collectionView.collectionViewLayout invalidateLayout];
+    if (self.numberOfItems > 0) {
+        [self.collectionView.collectionViewLayout invalidateLayout];
+    }
+}
+
+- (void)setTitleHeight:(CGFloat)titleHeight{
+    _titleHeight = titleHeight;
+    self.customLayout.itemSize = CGSizeMake(_imageSize.width, _imageSize.height+_titleHeight+_imageAndTitleSpacing);
+    [LSBannerCell setTitleHeight:titleHeight];
+    if (self.numberOfItems > 0) {
+        [self.collectionView.collectionViewLayout invalidateLayout];
+    }
+}
+
+- (void)setImageAndTitleSpacing:(CGFloat)imageAndTitleSpacing {
+    _imageAndTitleSpacing = imageAndTitleSpacing;
+    self.customLayout.itemSize = CGSizeMake(_imageSize.width, _imageSize.height+_titleHeight+_imageAndTitleSpacing);
+    [LSBannerCell setSpaceBetweenImageAndDescription:imageAndTitleSpacing];
+    if (self.numberOfItems > 0) {
+        [self.collectionView.collectionViewLayout invalidateLayout];
+    }
 }
 
 - (void)setImageSize:(CGSize)imageSize {
     _imageSize = imageSize;
-    self.customLayout.itemSize = [LSBannerCell calulateCellSizeWithImageSize:imageSize];
-    [self.collectionView.collectionViewLayout invalidateLayout];
-
+    self.customLayout.itemSize = CGSizeMake(_imageSize.width, _imageSize.height+_titleHeight+_imageAndTitleSpacing);
+    [LSBannerCell setImageSize:imageSize];
+    if (self.numberOfItems > 0) {
+        [self.collectionView.collectionViewLayout invalidateLayout];
+    }
 }
 
 - (void)setSectionInset:(UIEdgeInsets)sectionInset {
     _sectionInset = sectionInset;
     self.customLayout.sectionInset = self.sectionInset;
-    [self.collectionView.collectionViewLayout invalidateLayout];
-
+    if (self.numberOfItems > 0) {
+        [self.collectionView.collectionViewLayout invalidateLayout];
+    }
 }
 
 - (void)setEnableTransformAnimation:(BOOL)enableTransformAnimation {
     _enableTransformAnimation = enableTransformAnimation;
     self.customLayout.enableTransformAnimation = enableTransformAnimation;
-    [self.collectionView.collectionViewLayout invalidateLayout];
+    if (self.numberOfItems > 0) {
+        [self.collectionView.collectionViewLayout invalidateLayout];
+    }
 }
 
 - (void)setEnableInfinite:(BOOL)enableInfinite {
     _enableInfinite = enableInfinite;
     self.customLayout.enableInfinite = enableInfinite;
-    [self.collectionView.collectionViewLayout invalidateLayout];
+    if (self.numberOfItems > 0) {
+        [self.collectionView.collectionViewLayout invalidateLayout];
+    }
 }
 
 - (NSInteger)numberOfItems {

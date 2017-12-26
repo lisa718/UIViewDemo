@@ -28,9 +28,13 @@
         return;
     }
     //获取布局信息
+    // 因为布局不会改变，只是改变contentOffset，所以不用重复计算
     if(self.layoutInfoArr.count >0) {
         return;
     }
+    
+//    [self.layoutInfoArr removeAllObjects];
+    
     NSInteger numberOfItems = [self numberItems];
     NSMutableArray *subArr = @[].mutableCopy;
     for (NSInteger item = 0; item < numberOfItems; item++){
@@ -46,7 +50,9 @@
     }
     
     //存储布局信息
-    self.layoutInfoArr = @[].mutableCopy;
+    if (self.layoutInfoArr == nil) {
+         self.layoutInfoArr = @[].mutableCopy;
+    }
     [self.layoutInfoArr addObjectsFromArray:[subArr copy]];
 //    [self storeLayout];
 
@@ -64,7 +70,7 @@
                     + self.transformSize.width
                     + ((self.enableInfinite)?0:self.sectionInset.left+self.sectionInset.right);// 无限模式没有左右间距
 
-    CGFloat height = 0;
+    CGFloat height = 0;//self.itemSize.height + self.sectionInset.top + self.sectionInset.bottom;
     self.contentSize = CGSizeMake(width,height);
     return self.contentSize;
 
@@ -227,7 +233,7 @@
     CGFloat newOffsetX = targetAttr.center.x - attr.center.x;
     CGPoint newOffset = CGPointMake(self.collectionView.contentOffset.x + newOffsetX, self.collectionView.contentOffset.y);
     CGPoint correctOffset = [self targetContentOffsetForProposedContentOffset:newOffset];
-    return correctOffset;
+    return correctOffset;//CGPointMake(correctOffset.x,0);
 }
 
 - (NSInteger)numberItems{

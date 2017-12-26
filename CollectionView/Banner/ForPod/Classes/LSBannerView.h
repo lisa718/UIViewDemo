@@ -20,7 +20,8 @@
 @property (nonatomic,assign) CGFloat        itemSpacing;
 @property (nonatomic,assign) CGSize         imageSize;
 @property (nonatomic,assign) UIEdgeInsets   sectionInset;
-@property (nonatomic,strong) UIImage        *placeholderItemImage; // each banner image
+@property (nonatomic,assign) CGFloat        titleHeight;
+@property (nonatomic,assign) CGFloat        imageAndTitleSpacing;
 
 @property (nonatomic,assign) BOOL           enableTransformAnimation;
 @property (nonatomic,assign) BOOL           enableInfinite;

@@ -110,9 +110,15 @@
     LSBannerCell * tagertCell =  *cell;
     LSBannerEntity *entity = self.bannerDataArray[index];
     [tagertCell.imageView sd_setImageWithURL:[NSURL URLWithString:entity.imageName] placeholderImage:nil];
-//    tagertCell.label.font = [UIFont systemFontOfSize:30];
+    tagertCell.label.font = [UIFont systemFontOfSize:15];
     tagertCell.label.text = entity.title;
-//    [LSBannerCell setSpaceBetweenImageAndDescription:-10];
+}
+- (NSURL*)bannerView:(LSBannerView *)bannerView prefetchBannerImageAtIndexPaths:(NSInteger)index {
+    LSBannerEntity *entity = self.bannerDataArray[index];
+    if (entity) {
+        return [NSURL URLWithString:entity.imageName];
+    }
+    return nil;
 }
 
 #pragma mark - getters & setters
@@ -126,7 +132,9 @@
         _bannerView.delegate = self;
         _bannerView.enableTransformAnimation = YES;
         _bannerView.enableAutoScroll = YES;
-        _bannerView.enableInfinite = NO;
+        _bannerView.enableInfinite = YES;
+        _bannerView.titleHeight = 15;
+        _bannerView.imageAndTitleSpacing = 6;
     }
     return _bannerView;
 }

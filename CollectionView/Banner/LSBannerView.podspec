@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 #
 
 s.name         = "LSBannerView"
-s.version      = "1.0.5"
+s.version      = "1.0.6"
 s.summary      = "banner made by custom collection Layout"
 
 # This description is used to generate tags and improve search results.
@@ -136,7 +136,6 @@ s.requires_arc = true
 s.dependency 'HexColors', '~> 2.3.0'
 s.dependency 'LSTimer'
 s.dependency 'HandyFrame'
-s.dependency 'SDWebImage', '~> 4.2.2'
 
 
 end

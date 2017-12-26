@@ -12,13 +12,15 @@
 
 static const NSMutableAttributedString * cellLableStyledString;
 static CGFloat spaceBetweenImageAndDescription;
-
+static CGFloat titleHeight;
+static CGSize imageSize;
 
 @implementation LSBannerCell
 + (void)initialize {
     if (self == [LSBannerCell class]) {
-        spaceBetweenImageAndDescription = 6;
-
+        spaceBetweenImageAndDescription = 0;
+        imageSize = CGSizeZero;
+        titleHeight = 0;
     }
 }
 
@@ -26,12 +28,8 @@ static CGFloat spaceBetweenImageAndDescription;
 {
     self = [super initWithFrame:frame];
     if (self) {
-       
         [self.contentView addSubview:self.imageView];
         [self.contentView addSubview:self.label];
-        
-        [self.label addObserver:self forKeyPath:@"font" options:NSKeyValueObservingOptionNew context:nil];
-        [self.label addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
@@ -42,35 +40,36 @@ static CGFloat spaceBetweenImageAndDescription;
 }
 
 - (void)dealloc {
-    [self.label removeObserver:self forKeyPath:@"font"];
-    [self.label removeObserver:self forKeyPath:@"text"];
-    cellLableStyledString = nil;
+//    [self.label removeObserver:self forKeyPath:@"font"];
+//    [self.label removeObserver:self forKeyPath:@"text"];
+//    cellLableStyledString = nil;
+    spaceBetweenImageAndDescription = 0;
+    imageSize = CGSizeZero;
+    titleHeight = 0;
+    
 }
 
 - (void)calculateLayout {
     
 // 此处计算实现了
-    CGFloat totalWidth = self.contentView.ct_width;
-    CGFloat totalHeight = self.contentView.ct_height;
+
     
-    CGRect lableRect = [cellLableStyledString boundingRectWithSize:CGSizeMake(totalWidth, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading context:nil];
+//    CGRect lableRect = [cellLableStyledString boundingRectWithSize:CGSizeMake(totalWidth, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading context:nil];
     
     // image
-    CGFloat imageWidth = totalWidth;
-    CGFloat imageHeight = totalHeight-spaceBetweenImageAndDescription-lableRect.size.height;
-    self.imageView.frame = (CGRect){0,0,imageWidth,imageHeight};
+//    CGFloat imageWidth = totalWidth;
+//    CGFloat imageHeight = totalWidth;
+    self.imageView.frame = (CGRect){0,0,imageSize.width,imageSize.height};
     
     // label
-    BOOL isEmptyLabel = [[self class] isEmptyLabel:self.label];
     
-    if (!isEmptyLabel) {
+    if (titleHeight > 0) {
         // label
         self.label.ct_top = self.imageView.ct_bottom + spaceBetweenImageAndDescription;
         self.label.ct_left = self.imageView.ct_left;
-        self.label.ct_width = totalWidth;
-        self.label.ct_height = lableRect.size.height;
+        self.label.ct_width = imageSize.width;
+        self.label.ct_height = titleHeight;
     }
-
 }
 
 + (BOOL)isEmptyLabel:(UILabel*)label {
@@ -80,45 +79,43 @@ static CGFloat spaceBetweenImageAndDescription;
     return isEmptyLabel;
 }
 
-+ (CGSize)calulateCellSizeWithImageSize:(CGSize)imageSize {
-    
-    CGFloat totalHeight = 0;
-    CGFloat totalWidth = imageSize.width;
-    
-    // image
-    totalHeight += totalWidth*imageSize.height/imageSize.width;
-    
-    //
-    CGRect lableRect = [cellLableStyledString boundingRectWithSize:CGSizeMake(totalWidth, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading context:nil];
-    totalHeight += lableRect.size.height>0?(lableRect.size.height+spaceBetweenImageAndDescription):0;
-    
-    return CGSizeMake(totalWidth, totalHeight);
-}
+//+ (CGSize)calulateCellSizeWithImageSize:(CGSize)imageSize {
+//
+//    CGFloat totalHeight = 0;
+//    CGFloat totalWidth = imageSize.width;
+//
+//    // image
+//    totalHeight += totalWidth*imageSize.height/imageSize.width;
+//
+//    //
+//    CGRect lableRect = [cellLableStyledString boundingRectWithSize:CGSizeMake(totalWidth, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading context:nil];
+//    totalHeight += lableRect.size.height>0?(lableRect.size.height+spaceBetweenImageAndDescription):0;
+//
+//    return CGSizeMake(totalWidth, totalHeight);
+//}
 
-+ (void)setSpaceBetweenImageAndDescription:(CGFloat)space {
-    spaceBetweenImageAndDescription = space;
-}
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"font"] && !self.label.hidden) {
-        if (cellLableStyledString == nil) {
-            cellLableStyledString = [[NSMutableAttributedString alloc] initWithAttributedString:_label.attributedText];
-        }
-        if (self.label.attributedText) {
-              [cellLableStyledString setAttributedString:self.label.attributedText];
-        }
-    }
-    else  if ([keyPath isEqualToString:@"text"] && !self.label.hidden) {
-        if (cellLableStyledString == nil) {
-            cellLableStyledString = [[NSMutableAttributedString alloc] initWithAttributedString:_label.attributedText];
-           
-        }
-        
-        if (self.label.attributedText) {
-            [cellLableStyledString setAttributedString:self.label.attributedText];
-        }
-    }
-}
+
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+//    if ([keyPath isEqualToString:@"font"] && !self.label.hidden) {
+//        if (cellLableStyledString == nil) {
+//            cellLableStyledString = [[NSMutableAttributedString alloc] initWithAttributedString:_label.attributedText];
+//        }
+//        if (self.label.attributedText) {
+//              [cellLableStyledString setAttributedString:self.label.attributedText];
+//        }
+//    }
+//    else  if ([keyPath isEqualToString:@"text"] && !self.label.hidden) {
+//        if (cellLableStyledString == nil) {
+//            cellLableStyledString = [[NSMutableAttributedString alloc] initWithAttributedString:_label.attributedText];
+//
+//        }
+//
+//        if (self.label.attributedText) {
+//            [cellLableStyledString setAttributedString:self.label.attributedText];
+//        }
+//    }
+//}
 
 #pragma marg - getters & setters
 - (UIImageView *)imageView {
@@ -143,5 +140,14 @@ static CGFloat spaceBetweenImageAndDescription;
     return _label;
 }
 
++ (void)setSpaceBetweenImageAndDescription:(CGFloat)space {
+    spaceBetweenImageAndDescription = space;
+}
++ (void)setImageSize:(CGSize)image_size {
+    imageSize = image_size;
+}
++ (void)setTitleHeight:(CGFloat)title_height {
+    titleHeight = title_height;
+}
 @end
 
