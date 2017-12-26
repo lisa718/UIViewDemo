@@ -14,6 +14,7 @@
 #import "LSBannerViewController.h"
 #import "LSBannerViewWrapperController.h"
 #import "LSFloatingLabelManager.h"
+#import "LSNavbarAnimationController.h"
 
 static __weak UINavigationBar * lastNavBar;
 @interface ViewController ()
@@ -36,7 +37,7 @@ static __weak UINavigationBar * lastNavBar;
 // bottom + stay
 @property (nonatomic,strong) UIStackView *bottomContainerView;
 @property (nonatomic,strong) UIButton *dimissBtn;
-@property (nonatomic,strong) UIButton *topSuccessStayBtn;
+@property (nonatomic,strong) UIButton *navbarAnimationBtn;
 @property (nonatomic,strong) UIButton *bottomErrorStayBtn;
 @property (nonatomic,strong) UIButton *bottomSuccessBtn;
 
@@ -113,7 +114,7 @@ static __weak UINavigationBar * lastNavBar;
     // Bottom
     [self.view addSubview:self.bottomContainerView];
     [self.bottomContainerView addArrangedSubview:self.dimissBtn];
-    [self.bottomContainerView addArrangedSubview:self.topSuccessStayBtn];
+    [self.bottomContainerView addArrangedSubview:self.navbarAnimationBtn];
     [self.bottomContainerView addArrangedSubview:self.bottomErrorStayBtn];
     [self.bottomContainerView addArrangedSubview:self.bottomSuccessBtn];
 
@@ -185,14 +186,8 @@ static __weak UINavigationBar * lastNavBar;
     
 }
 
-- (void)topSuccessStayBtnClick:(UIButton *)button {
-    [LSMessage showMessageInViewController:self.navigationController
-                                         title:nil
-                                      subtitle:nil
-                                         image:nil
-                                          type:LSMessageType_Success
-                                      durationSecs:LSMessageDuration_Seconds_Stay
-                                    atPosition:LSMessagePosition_Top];
+- (void)navbarAnimationBtnClick:(UIButton *)button {
+    [self.navigationController pushViewController:[LSNavbarAnimationController new] animated:YES];
 }
 
 - (void)overbarBtnClick:(UIButton *)button {
@@ -278,16 +273,16 @@ static __weak UINavigationBar * lastNavBar;
     return _floatLabelBtn;
 }
 
-- (UIButton *)topSuccessStayBtn {
-    if (_topSuccessStayBtn == nil) {
-        _topSuccessStayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_topSuccessStayBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [_topSuccessStayBtn setTitle:@"TopStay" forState:UIControlStateNormal];
-        [_topSuccessStayBtn addTarget:self action:@selector(topSuccessStayBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_topSuccessStayBtn setFrame:CGRectMake(0, 0, 70, 40)];
+- (UIButton *)navbarAnimationBtn {
+    if (_navbarAnimationBtn == nil) {
+        _navbarAnimationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_navbarAnimationBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_navbarAnimationBtn setTitle:@"导航动画" forState:UIControlStateNormal];
+        [_navbarAnimationBtn addTarget:self action:@selector(navbarAnimationBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_navbarAnimationBtn setFrame:CGRectMake(0, 0, 70, 40)];
         
     }
-    return _topSuccessStayBtn;
+    return _navbarAnimationBtn;
 }
 - (UIButton *)dimissBtn {
     if (_dimissBtn == nil) {

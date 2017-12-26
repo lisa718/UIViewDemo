@@ -13,6 +13,7 @@
 		E110D38C1FDFF5280030014E /* UITableView+FDKeyedHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E110D3871FDFF5270030014E /* UITableView+FDKeyedHeightCache.m */; };
 		E110D38D1FDFF5280030014E /* UITableView+FDTemplateLayoutCellDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = E110D3881FDFF5270030014E /* UITableView+FDTemplateLayoutCellDebug.m */; };
 		E110D38E1FDFF5280030014E /* UITableView+FDIndexPathHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E110D3891FDFF5270030014E /* UITableView+FDIndexPathHeightCache.m */; };
+		E12708681FF1F9AB00ECE880 /* LSNavbarAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12708671FF1F9AB00ECE880 /* LSNavbarAnimationController.m */; };
 		E1483B971FD3BD790030CA29 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1483B961FD3BD790030CA29 /* AppDelegate.m */; };
 		E1483B9A1FD3BD790030CA29 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1483B991FD3BD790030CA29 /* ViewController.m */; };
 		E1483B9F1FD3BD790030CA29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1483B9E1FD3BD790030CA29 /* Assets.xcassets */; };
@@ -93,6 +94,8 @@
 		E110D3881FDFF5270030014E /* UITableView+FDTemplateLayoutCellDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCellDebug.m"; sourceTree = "<group>"; };
 		E110D3891FDFF5270030014E /* UITableView+FDIndexPathHeightCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDIndexPathHeightCache.m"; sourceTree = "<group>"; };
 		E110D38A1FDFF5270030014E /* UITableView+FDTemplateLayoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDTemplateLayoutCell.h"; sourceTree = "<group>"; };
+		E12708661FF1F9AB00ECE880 /* LSNavbarAnimationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSNavbarAnimationController.h; sourceTree = "<group>"; };
+		E12708671FF1F9AB00ECE880 /* LSNavbarAnimationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSNavbarAnimationController.m; sourceTree = "<group>"; };
 		E1483B921FD3BD790030CA29 /* LSMessages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LSMessages.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1483B951FD3BD790030CA29 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E1483B961FD3BD790030CA29 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -234,9 +237,19 @@
 			path = FDTableViewHeight;
 			sourceTree = "<group>";
 		};
+		E12708651FF1F90600ECE880 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				E12708661FF1F9AB00ECE880 /* LSNavbarAnimationController.h */,
+				E12708671FF1F9AB00ECE880 /* LSNavbarAnimationController.m */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
 		E1483B891FD3BD790030CA29 = {
 			isa = PBXGroup;
 			children = (
+				E12708651FF1F90600ECE880 /* Animation */,
 				E1F99A081FECB3D700D461D2 /* Performance */,
 				E1F999B91FEBFFA300D461D2 /* Window */,
 				E1999B9F1FE65CA900AA4C22 /* CollectionView */,
@@ -693,6 +706,7 @@
 				E1EDE6101FED44E000A5FEF5 /* LSBannerEntity.m in Sources */,
 				E1483B971FD3BD790030CA29 /* AppDelegate.m in Sources */,
 				E110D3811FDF820D0030014E /* UITableViewCell+Test.m in Sources */,
+				E12708681FF1F9AB00ECE880 /* LSNavbarAnimationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
