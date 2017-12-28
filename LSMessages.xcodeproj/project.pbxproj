@@ -14,6 +14,12 @@
 		E110D38D1FDFF5280030014E /* UITableView+FDTemplateLayoutCellDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = E110D3881FDFF5270030014E /* UITableView+FDTemplateLayoutCellDebug.m */; };
 		E110D38E1FDFF5280030014E /* UITableView+FDIndexPathHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E110D3891FDFF5270030014E /* UITableView+FDIndexPathHeightCache.m */; };
 		E12708681FF1F9AB00ECE880 /* LSNavbarAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12708671FF1F9AB00ECE880 /* LSNavbarAnimationController.m */; };
+		E132F85B1FF4D544002E3B7F /* LSTableViewControllerForMVVM.m in Sources */ = {isa = PBXBuildFile; fileRef = E132F85A1FF4D544002E3B7F /* LSTableViewControllerForMVVM.m */; };
+		E132F85E1FF4DE7F002E3B7F /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = E132F85D1FF4DE7F002E3B7F /* data.json */; };
+		E132F8611FF4DEBA002E3B7F /* LSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E132F8601FF4DEBA002E3B7F /* LSTableViewCell.m */; };
+		E132F8641FF4DEDF002E3B7F /* LSUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E132F8631FF4DEDF002E3B7F /* LSUserInfo.m */; };
+		E132F8671FF4DEF5002E3B7F /* LSUserInfoListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E132F8661FF4DEF5002E3B7F /* LSUserInfoListViewModel.m */; };
+		E132F86A1FF4FEEB002E3B7F /* LSUserInfoList.m in Sources */ = {isa = PBXBuildFile; fileRef = E132F8691FF4FEEB002E3B7F /* LSUserInfoList.m */; };
 		E1483B971FD3BD790030CA29 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1483B961FD3BD790030CA29 /* AppDelegate.m */; };
 		E1483B9A1FD3BD790030CA29 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1483B991FD3BD790030CA29 /* ViewController.m */; };
 		E1483B9F1FD3BD790030CA29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1483B9E1FD3BD790030CA29 /* Assets.xcassets */; };
@@ -96,6 +102,18 @@
 		E110D38A1FDFF5270030014E /* UITableView+FDTemplateLayoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDTemplateLayoutCell.h"; sourceTree = "<group>"; };
 		E12708661FF1F9AB00ECE880 /* LSNavbarAnimationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSNavbarAnimationController.h; sourceTree = "<group>"; };
 		E12708671FF1F9AB00ECE880 /* LSNavbarAnimationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSNavbarAnimationController.m; sourceTree = "<group>"; };
+		E132F8591FF4D544002E3B7F /* LSTableViewControllerForMVVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTableViewControllerForMVVM.h; sourceTree = "<group>"; };
+		E132F85A1FF4D544002E3B7F /* LSTableViewControllerForMVVM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSTableViewControllerForMVVM.m; sourceTree = "<group>"; };
+		E132F85C1FF4D602002E3B7F /* LSMessages.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LSMessages.entitlements; sourceTree = "<group>"; };
+		E132F85D1FF4DE7F002E3B7F /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
+		E132F85F1FF4DEBA002E3B7F /* LSTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSTableViewCell.h; sourceTree = "<group>"; };
+		E132F8601FF4DEBA002E3B7F /* LSTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSTableViewCell.m; sourceTree = "<group>"; };
+		E132F8621FF4DEDF002E3B7F /* LSUserInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSUserInfo.h; sourceTree = "<group>"; };
+		E132F8631FF4DEDF002E3B7F /* LSUserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSUserInfo.m; sourceTree = "<group>"; };
+		E132F8651FF4DEF5002E3B7F /* LSUserInfoListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSUserInfoListViewModel.h; sourceTree = "<group>"; };
+		E132F8661FF4DEF5002E3B7F /* LSUserInfoListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSUserInfoListViewModel.m; sourceTree = "<group>"; };
+		E132F8681FF4FEEB002E3B7F /* LSUserInfoList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSUserInfoList.h; sourceTree = "<group>"; };
+		E132F8691FF4FEEB002E3B7F /* LSUserInfoList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSUserInfoList.m; sourceTree = "<group>"; };
 		E1483B921FD3BD790030CA29 /* LSMessages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LSMessages.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1483B951FD3BD790030CA29 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E1483B961FD3BD790030CA29 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -253,7 +271,7 @@
 				E1F99A081FECB3D700D461D2 /* Performance */,
 				E1F999B91FEBFFA300D461D2 /* Window */,
 				E1999B9F1FE65CA900AA4C22 /* CollectionView */,
-				E1ED70AC1FE1759C00F30AB7 /* TableView */,
+				E1ED70AC1FE1759C00F30AB7 /* TableViewWithMVVM */,
 				E1ED70A81FE174AB00F30AB7 /* HeightCalculationMethods */,
 				E1ED70AB1FE1753D00F30AB7 /* Text-View */,
 				E1ED70AA1FE1750E00F30AB7 /* LayoutWays */,
@@ -281,6 +299,7 @@
 		E1483B941FD3BD790030CA29 /* LSMessages */ = {
 			isa = PBXGroup;
 			children = (
+				E132F85C1FF4D602002E3B7F /* LSMessages.entitlements */,
 				E1483BF01FD3D8F70030CA29 /* LSMessage.h */,
 				E1483BEF1FD3D8F70030CA29 /* LSMessage.m */,
 				E1483C171FD3D9B60030CA29 /* Assets */,
@@ -422,11 +441,22 @@
 			path = "Text-View";
 			sourceTree = "<group>";
 		};
-		E1ED70AC1FE1759C00F30AB7 /* TableView */ = {
+		E1ED70AC1FE1759C00F30AB7 /* TableViewWithMVVM */ = {
 			isa = PBXGroup;
 			children = (
+				E132F8591FF4D544002E3B7F /* LSTableViewControllerForMVVM.h */,
+				E132F85A1FF4D544002E3B7F /* LSTableViewControllerForMVVM.m */,
+				E132F85F1FF4DEBA002E3B7F /* LSTableViewCell.h */,
+				E132F8601FF4DEBA002E3B7F /* LSTableViewCell.m */,
+				E132F8621FF4DEDF002E3B7F /* LSUserInfo.h */,
+				E132F8631FF4DEDF002E3B7F /* LSUserInfo.m */,
+				E132F8681FF4FEEB002E3B7F /* LSUserInfoList.h */,
+				E132F8691FF4FEEB002E3B7F /* LSUserInfoList.m */,
+				E132F8651FF4DEF5002E3B7F /* LSUserInfoListViewModel.h */,
+				E132F8661FF4DEF5002E3B7F /* LSUserInfoListViewModel.m */,
+				E132F85D1FF4DE7F002E3B7F /* data.json */,
 			);
-			path = TableView;
+			path = TableViewWithMVVM;
 			sourceTree = "<group>";
 		};
 		E1ED70B21FE178EC00F30AB7 /* UILabel */ = {
@@ -546,6 +576,14 @@
 					E1483B911FD3BD790030CA29 = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					E1483BA91FD3BD790030CA29 = {
 						CreatedOnToolsVersion = 9.1;
@@ -591,6 +629,7 @@
 				E1483C2A1FD3D9D10030CA29 /* lsmessage_prompting_fail.png in Resources */,
 				E1483C2C1FD3D9D10030CA29 /* lsmessage_prompting_error@2x.png in Resources */,
 				E1483C301FD3D9D10030CA29 /* lsmessage_prompting_close.png in Resources */,
+				E132F85E1FF4DE7F002E3B7F /* data.json in Resources */,
 				E149463A1FE7630D00E24006 /* banner_data.json in Resources */,
 				E1483C291FD3D9D10030CA29 /* lsmessage_prompting_succeed.png in Resources */,
 				E1483C2D1FD3D9D10030CA29 /* lsmessage_prompting_error.png in Resources */,
@@ -678,6 +717,8 @@
 				E110D38E1FDFF5280030014E /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				E1B38A741FDAEA0C00408309 /* NSObject+DLIntrospection.m in Sources */,
 				E1ED70BB1FE2593000F30AB7 /* LSHeightCalculationContext.m in Sources */,
+				E132F85B1FF4D544002E3B7F /* LSTableViewControllerForMVVM.m in Sources */,
+				E132F86A1FF4FEEB002E3B7F /* LSUserInfoList.m in Sources */,
 				E155FD641FEAB11400714317 /* LSBannerViewController.m in Sources */,
 				E1B38BF91FDD1ACB00408309 /* TestTableViewCell.m in Sources */,
 				E1483BF61FD3D8F80030CA29 /* LSMessageOperation.m in Sources */,
@@ -702,10 +743,13 @@
 				E1483BA51FD3BD790030CA29 /* main.m in Sources */,
 				E1F999BF1FECABD600D461D2 /* LSFloatingLabelManager.m in Sources */,
 				E1999BA51FE6624000AA4C22 /* LSCollectionViewCell.m in Sources */,
+				E132F8671FF4DEF5002E3B7F /* LSUserInfoListViewModel.m in Sources */,
+				E132F8641FF4DEDF002E3B7F /* LSUserInfo.m in Sources */,
 				E1ED70BF1FE259C100F30AB7 /* LSSizeToFit.m in Sources */,
 				E1EDE6101FED44E000A5FEF5 /* LSBannerEntity.m in Sources */,
 				E1483B971FD3BD790030CA29 /* AppDelegate.m in Sources */,
 				E110D3811FDF820D0030014E /* UITableViewCell+Test.m in Sources */,
+				E132F8611FF4DEBA002E3B7F /* LSTableViewCell.m in Sources */,
 				E12708681FF1F9AB00ECE880 /* LSNavbarAnimationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -852,7 +896,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = LSMessages/LSMessages.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 226DAL3CC8;
 				INFOPLIST_FILE = LSMessages/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -868,7 +914,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = LSMessages/LSMessages.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 226DAL3CC8;
 				INFOPLIST_FILE = LSMessages/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -7,6 +7,7 @@ def app_pods
     pod 'HandyFrame'
     pod 'SDWebImage'
     pod 'LSTimer'
+    pod 'JSONModel'
 end
 
 target 'LSMessages' do

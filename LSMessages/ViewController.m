@@ -15,6 +15,7 @@
 #import "LSBannerViewWrapperController.h"
 #import "LSFloatingLabelManager.h"
 #import "LSNavbarAnimationController.h"
+#import "LSTableViewControllerForMVVM.h"
 
 static __weak UINavigationBar * lastNavBar;
 @interface ViewController ()
@@ -38,7 +39,7 @@ static __weak UINavigationBar * lastNavBar;
 @property (nonatomic,strong) UIStackView *bottomContainerView;
 @property (nonatomic,strong) UIButton *dimissBtn;
 @property (nonatomic,strong) UIButton *navbarAnimationBtn;
-@property (nonatomic,strong) UIButton *bottomErrorStayBtn;
+@property (nonatomic,strong) UIButton *tableviewBtn;
 @property (nonatomic,strong) UIButton *bottomSuccessBtn;
 
 
@@ -115,7 +116,7 @@ static __weak UINavigationBar * lastNavBar;
     [self.view addSubview:self.bottomContainerView];
     [self.bottomContainerView addArrangedSubview:self.dimissBtn];
     [self.bottomContainerView addArrangedSubview:self.navbarAnimationBtn];
-    [self.bottomContainerView addArrangedSubview:self.bottomErrorStayBtn];
+    [self.bottomContainerView addArrangedSubview:self.tableviewBtn];
     [self.bottomContainerView addArrangedSubview:self.bottomSuccessBtn];
 
     [self configLayout];
@@ -209,14 +210,8 @@ static __weak UINavigationBar * lastNavBar;
                                   durationSecs:LSMessageDuration_Seconds_AutoDisappear_After4
                                     atPosition:LSMessagePosition_Bottom];
 }
-- (void)bottomErrorStayBtnClick:(UIButton *)button {
-    [LSMessage showMessageInViewController:self.navigationController
-                                         title:@"底部成功了"
-                                      subtitle:@"设置成功了底部的弹框"
-                                         image:nil
-                                          type:LSMessageType_Error
-                                  durationSecs:LSMessageDuration_Seconds_Stay
-                                    atPosition:LSMessagePosition_Bottom];
+- (void)tableviewBtnClick:(UIButton *)button {
+    [self.navigationController pushViewController:[LSTableViewControllerForMVVM new] animated:(YES)];
 }
 
 - (void)dimissBtnClick:(UIButton *)button {
@@ -342,16 +337,16 @@ static __weak UINavigationBar * lastNavBar;
     return _bottomSuccessBtn;
 }
 
-- (UIButton *)bottomErrorStayBtn {
-    if (_bottomErrorStayBtn == nil) {
-        _bottomErrorStayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_bottomErrorStayBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [_bottomErrorStayBtn setTitle:@"BottomErrorStay" forState:UIControlStateNormal];
-        [_bottomErrorStayBtn addTarget:self action:@selector(bottomErrorStayBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_bottomErrorStayBtn setFrame:CGRectMake(0, 0, 70, 60)];
+- (UIButton *)tableviewBtn {
+    if (_tableviewBtn == nil) {
+        _tableviewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_tableviewBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_tableviewBtn setTitle:@"tableview" forState:UIControlStateNormal];
+        [_tableviewBtn addTarget:self action:@selector(tableviewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_tableviewBtn setFrame:CGRectMake(0, 0, 70, 60)];
         
     }
-    return _bottomErrorStayBtn;
+    return _tableviewBtn;
 }
 
 - (UIButton *)pushBtn {

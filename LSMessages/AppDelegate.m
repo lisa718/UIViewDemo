@@ -27,7 +27,7 @@
     
   [LSPerformance startMonitorWithPerformaceType:LSPerformance_FS];
 
-    
+    [[LSMessageView appearance] setTitleFont:[UIFont boldSystemFontOfSize:15]];// reset mix
     [[LSMessageView appearance] setTitleFont:[UIFont boldSystemFontOfSize:11]];// reset mix
     [[LSMessageView appearance] setSuccessBackgroundColor:[UIColor blueColor]];
     [[LSMessageView appearance] setErrorBackgroundColor:[UIColor greenColor]];
